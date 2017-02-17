@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Form-Demo</title>
+<style type="text/css">
+	.required {
+		color: #f00;
+	}
+</style>
+</head>
+<body>
+	<form name="itemForm" method="post" action="">
+		<fieldset>
+		    <legend>Purchase An Item</legend>
+		    <p>Your name:<input type="text" name="userName" /><span class="required">*</span></p>
+		    <p>Your phone number(11-digital):<input type="text" name="phoneNumber" /><span class="required">*</span></p>
+		    <p>Is VIP user:
+		    	<input type="radio" name="isVip" value="true" />yes&nbsp;&nbsp;
+		    	<input type="radio" name="isVip" value="false" checked="checked" />no</p>
+		    <p>Choose item's size:
+			    <select name="size">
+			        <option value="s">Small</option>
+			        <option value="m">Medium</option>
+			        <option value="l">Large</option>
+			        <option value="xl">Extra Large</option>
+			    </select>
+			</p>
+		    <div>Address to use:
+		    	<select name="addressRegion">
+			        <option value="HB">Hubei</option>
+			        <option value="BJ">Beijing</option>
+			        <option value="SH">Shanghai</option>
+			        <option value="GD">Guangdong</option>
+			    </select>
+			    <select name="addressCity">
+			        <option value="BJ">Wuhan</option>
+			        <option value="HS">Huangshi</option>
+			        <option value="HG">Huanggang</option>
+			        <option value="JZ">Jingzhou</option>
+			    </select>
+		    	<textarea name="addressStreetInfo" rows="3" cols="75" style="vertical-align: top;" placeholder="Please specify the street information here"></textarea><span class="required">*</span>
+		    </div>
+		    <p>Price: ￥
+				<input type="text" name="price" value="365" readonly="readonly" />
+		    </p>
+		    <p>Discounts:
+				<select>
+					<option value="A">package A</option>
+			        <option value="B">package B</option>
+			        <option value="C">package C</option>
+			        <option value="D">package D</option>
+				</select>
+		    </p>
+		    <p>Comment:
+		    	<textarea name="comment" rows="3" cols="75" style="vertical-align: top;" placeholder="Add your comment here"></textarea>
+		    </p>
+		    <p><input type="reset" value="Reset" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Purchase" /></p>
+		</fieldset>
+	</form>
+</body>
+</html>

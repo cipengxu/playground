@@ -1,0 +1,160 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript">
+	var wsh=new ActiveXObject('WScript.Shell');
+	function exec(command){     
+		window.oldOnError=window.onerror;     
+		window._command=command;     
+		window.onerror= function(err){     
+			if(err.indexOf('utomation')!=-1)   {     
+				alert('命令'+window._command+'已经被用户禁止！');       
+				return true;     
+			}     
+			else{
+				return  false; 
+			}    
+		};     
+		//var wsh=new ActiveXObject('WScript.Shell');
+		if (wsh) {
+			// wsh.Run("%windir%\\notepad C:\\license.txt");C:\cygwin64\bin
+			// wsh.Run("C:\\cygwin64\\bin\\mintty.exe");
+			wsh.Run(command);
+		}   
+		window.onerror=window.oldOnError;
+	}
+	
+	function appendText(text, textInline){
+		var textNode = document.createTextNode(text);
+		var textContainer = (document.getElementById("text-container") == null)?document.body:document.getElementById("text-container");
+		if(textInline && textInline === false){
+			textContainer.appendChild(textNode);
+		}
+		else{
+			var pNode = document.createElement("p");
+			pNode.appendChild(textNode);
+			textContainer.appendChild(pNode);
+		}
+	}
+	
+	function clearText(targetId){
+		var textContainerId = "text-container" || targetId;
+		var textContainer = document.getElementById(textContainerId);
+		if(textContainer){
+			textContainer.innerHTML = "";
+		}
+	}
+	
+	function listEnv(user){
+		//var wsh = new ActiveXObject("WScript.Shell");
+		if(wsh){
+			var env = wsh.Environment(user);
+			var colVars = new Enumerator(env);
+			var arr, strVarName, strVarValue;
+			appendText("--------------------------------" + user + "'s Environment Variables--------------------------------");
+			for(; !colVars.atEnd(); colVars.moveNext())
+			{
+				arr = colVars.item().split("=");
+				strVarName = arr[0];
+				strVarValue = wsh.ExpandEnvironmentStrings(arr[1]);
+				appendText(strVarName + "=" + strVarValue);
+			}
+			appendText("----------------------------------------------------------------");
+		}
+	}
+	
+	function getEnv(user, envKey){
+		//var wsh = new ActiveXObject("WScript.Shell");
+		if(wsh){
+			var env = wsh.Environment(user);
+			var colVars = new Enumerator(env);
+			var arr, strVarName, strVarValue;
+			for(; !colVars.atEnd(); colVars.moveNext())
+			{
+				arr = colVars.item().split("=");
+				strVarName = arr[0];
+				if(strVarName == envKey)
+					return wsh.ExpandEnvironmentStrings(arr[1]);
+			}
+		}
+		return wsh.ExpandEnvironmentStrings("HOMEDRIVE")+wsh.ExpandEnvironmentStrings("HOMEPATH");
+	}
+	
+	function addslashes(str) {
+	  return (str + '')
+		.replace(/[\\"']/g, '\\$&')
+		.replace(/\u0000/g, '\\0');
+	}
+	</script>
+</head>
+<body>
+	<input id="file-path" type="text" value="D:\\b.txt" />
+	<input id="btn" type="button" value="打开文本文件" />
+	<input id="checkbox0" type="checkbox" />
+	<span id="check-status0"></span>
+	<br/>
+	<input id="checkbox1" type="checkbox" />
+	<span id="check-status1"></span>
+	<div id="text-container"></div>
+	<!-- onclick="exec('%windir%\\notepad ‪C:\\license.txt')" won't work -->
+</body>
+<script type="text/javascript">
+	var filePath = document.getElementById("file-path");
+	var checkbox0 = document.getElementById("checkbox0");
+	var checkStatus0 = document.getElementById("check-status0");
+	function openTxt(){
+		if(checkbox0.checked){
+			exec("%windir%\\notepad "+filePath.value);
+		}
+		else{
+			checkStatus0.innerHTML = "click button to open desktop txt";
+			console.log("%windir%\\notepad "+addslashes(getEnv("Volatile","HOMEDRIVE")+getEnv("Volatile","HOMEPATH")+"\\Desktop\\")+"a.txt");
+			exec("%windir%\\notepad "+addslashes(getEnv("Volatile","HOMEDRIVE")+getEnv("Volatile","HOMEPATH")+"\\Desktop\\")+"a.txt");
+		}
+		window.open('', '_self', '');
+		window.close();
+	}
+	
+	var btn = document.getElementById("btn");
+	if(btn.addEventListener) {
+	  	btn.addEventListener('click', openTxt, false); 
+	} else if(btn.attachEvent)  {
+	  	btn.attachEvent('onclick', openTxt);
+	}
+	
+	function checkStatusFilePath(){
+		if(this.checked){
+			checkStatus0.innerHTML = "click button to open specified txt";
+		}
+		else{
+			checkStatus0.innerHTML = "click button to open desktop txt";
+		}
+	}
+	
+	if(checkbox0.addEventListener) {
+	  	checkbox0.addEventListener('click', checkStatusFilePath, false); 
+	} else if(checkbox0.attachEvent)  {
+	  	checkbox0.attachEvent('onclick', checkStatusFilePath);
+	}
+	
+	function showAllUserEnvs(){
+		var checkStatusNode = document.getElementById("check-status1");
+		if(this.checked)
+			checkStatusNode.innerHTML = "Status - Checked";
+		else
+			checkStatusNode.innerHTML = "";
+		clearText();
+		listEnv("User");
+		listEnv("System");
+		listEnv("Volatile");
+		listEnv("Process");
+	}
+	
+	var checkbox1 = document.getElementById("checkbox1");
+	if(checkbox1.addEventListener) {
+	  	checkbox1.addEventListener('click', showAllUserEnvs, false); 
+	} else if(checkbox1.attachEvent)  {
+	  	checkbox1.attachEvent('onclick', showAllUserEnvs);
+	}
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Priority Demo</title>
+    <style>
+    #container > p > .link.highlight:link {
+        color: #000;
+    }
+    
+    #container.container a.link[id] {
+        color: #f00;
+    }
+    
+    .container .greeting[data-user='Tom'] a.link[href='#'] {
+        color: #0f0;
+    }
+    
+    .greeting[data-user='Tom'][data-role] > #greetingLink[href='#'] {
+        color: #00f;
+    }
+    
+    .greeting[data-user='Tom'][data-role='admin'] a[id='greetingLink'][href='#'] {
+        color: #fff;
+    }
+    
+    .greeting a[target]:nth-child(2) {
+        color: #f00 !important;
+    }
+    
+    .greeting:not(.link) a:nth-child(2) {
+        color: #0f0 !important;
+    }
+    
+    .greeting:not(div) a:nth-child(2) {
+        color: #00f !important;
+    }
+    
+    ul#awesome li{
+        color: #f00;
+    }
+    
+    ul#awesome #must-buy {
+        color: #0f0;
+    }
+
+    ul.shopping-list li.favorite a {
+        color: #00f;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="container">
+        <p class="greeting" data-user="Tom" data-role="admin">
+            <a id="greetingLink" href="#" class="link highlight">Hello World!</a>
+            <a href="http://www.w3.org/TR/css3-selectors/#specificity" target="_blank">http://www.w3.org/TR/css3-selectors/#specificity</a>
+        </p>
+        <ul class="shopping-list" id="awesome">
+            <li>
+                <a href="#">Milk</a>
+            </li>
+            <li class="favorite" id="must-buy">
+                <a href="#" class="highlight">Sausage</a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

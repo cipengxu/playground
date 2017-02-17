@@ -1,0 +1,93 @@
+----MANUAL STEP----
+ssh root@10.88.48.93
+----JAVA----
+cd /tmp/
+wget --no-check-certificate http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-linux-x64.rpm
+rpm -ivh /usr/tmp/jdk-8u102-linux-x64.rpm
+
+sudo ln -s -v -f /usr/java/jdk1.8.0_102/bin/java /usr/bin/java
+sudo ln -s -v -f /usr/java/jdk1.8.0_102/bin/javac /usr/bin/javac
+
+java -version
+
+export JAVA_HOME=/usr/java/jdk1.8.0_102
+export JRE_HOME=/usr/java/jdk1.8.0_102/jre
+export PATH=$PATH:/usr/java/jdk1.8.0_102/bin:/usr/java/jdk1.8.0_102/jre/bin
+
+vi ~/.bash_profile
+......
+
+----TOMCAT----
+cd /tmp/
+wget http://download.nus.edu.sg/mirror/apache/tomcat/tomcat-8/v8.5.5/bin/apache-tomcat-8.5.5.tar.gz
+tar xzf apache-tomcat-8.5.5.tar.gz -C /usr/local/
+
+export TOMCAT_HOME=/usr/local/apache-tomcat-8.5.5
+
+vi ~/.bash_profile
+export TOMCAT_HOME=/usr/local/apache-tomcat-8.5.5
+
+
+----MAVEN----
+cd /tmp/
+wget http://download.nus.edu.sg/mirror/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+tar xzf apache-maven-3.3.9-bin.tar.gz -C /usr/local/
+
+export M2_HOME=/usr/local/apache-maven-3.3.9
+
+export M2=$M2_HOME/bin
+
+export MAVEN_OPTS="-Xms512m -Xmx2048m"
+
+export PATH=$M2:$PATH
+
+vi ~/.bash_profile
+......
+
+mvn --version
+
+
+JAVA_HOME=/usr/java/jdk1.8.0_102
+JRE_HOME=/usr/java/jdk1.8.0_102/jre
+TOMCAT_HOME=/usr/local/apache-tomcat-8.5.5
+M2_HOME=/usr/local/apache-maven-3.3.9
+M2=/usr/local/apache-maven-3.3.9/bin
+MAVEN_OPTS="-Xms512m -Xmx2048m"
+save above three variables to /etc/environment
+
+----Node.js && npm----
+cd /tmp/
+wget --no-check-certificate https://nodejs.org/dist/latest-v5.x/node-v5.12.0-linux-x64.tar.gz
+sudo tar -C /usr/local --strip-components 1 -xzf node-v5.12.0-linux-x64.tar.gz
+
+node -v
+
+npm version
+
+----Deploy----
+Copy settings.xml & toolchains.xml:
+scp /cygdrive/C/Users/cxu/.m2/settings.xml root@10.88.48.93:/root/.m2/
+scp /cygdrive/C/Users/cxu/.m2/toolchains.xml root@10.88.48.93:/root/.m2/
+update jdk path in toolchains.xml
+
+cd /root/
+create file .mavenrc
+export JAVA_HOME=/usr/java/jdk1.8.0_102
+
+Copy source to remote:
+scp -r /cygdrive/D/Workspaces/EASAP/syncjob root@10.88.48.93:/tmp/
+OR(in 10.88.48.93)
+sudo yum install git-all
+cd /tmp/
+git clone http://cxu@10.88.67.119:7990/scm/sj/syncjob.git -b ui-development
+
+cd /tmp/syncjob/
+mvn clean install
+
+cd /tmp/syncjob/syncjob.ui/src/main/webapp/
+npm install
+npm run postinstall
+npm run build
+
+cd /tmp/syncjob/syncjob.ui/
+mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run

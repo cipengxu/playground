@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equal Height Columns Demo</title>
+    <style>
+        /* 方式1：Faux Columns */
+        #container1 {
+            background: url("faux-columns.png") repeat-y;
+            overflow: hidden; /* clear float */
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        #sidebar1 {
+            float: left;
+            width: 240px;
+        }
+
+        #content1 {
+            float: left;
+            width: 720px;
+        }
+
+        /* 方式2：Pseudo Columns */
+        #container2 {
+            overflow: hidden; /* clear float */
+            background-color: #555; /* the shorter one's background color */
+            width: 100%;
+            /*width: 960px;
+            margin: 0 auto;*/
+        }
+
+        #sidebar2 {
+            float: left;
+            width: 25%;
+        }
+
+        #content2 {
+            float: left;
+            width: 75%;
+        }
+
+        /* 方式3：Borders and Negative Margins */
+        #container3 {
+            overflow: hidden; /* clear float */
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        #sidebar3 {
+            float: left;
+            width: 240px;
+            margin-right: -240px;
+            position: relative;
+        }
+
+        #content3 {
+            float: left;
+            width: 960px;
+            border-left: 240px solid #555;
+        }
+
+        /* 方式4：Offset Columns and Containers */
+        #container4-outer {
+            float: left;
+            overflow: hidden; /* clear float */
+        }
+
+        #container4-inner {
+            float: left;
+            position: relative;
+            right: 75%;
+        }
+
+        #sidebar4 {
+            float: left;
+            width: 25%;
+            position: relative;
+            left: 75%;
+        }
+
+        #content4 {
+            float: left;
+            width: 75%;
+            position: relative;
+            left: 75%;
+        }
+
+        /* 与等高列布局无关的CSS */
+        * {
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+        }
+
+        #container0 {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        .sidebar, .container-inner {
+            color: #fff;
+            background-color: #555;
+        }
+
+        .content, .container-outer {
+            color: #000;
+            background-color: #eee;
+        }
+
+        .sidebar, .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container0">
+        <div class="content">
+            <a href="http://vanseodesign.com/css/equal-height-columns/">http://vanseodesign.com/css/equal-height-columns/</a>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="container1">
+        <div id="sidebar1" class="sidebar">
+            <p>Sidebar:</p>
+
+            <p>
+                Faux columns have been around a long time. 2004 to be exact. For that same long time they were and maybe
+                still are the deFacto method for creating columns of equal height.<br/>
+
+                It’s a simple trick using a background image that’s repeated vertically. An example of this repeating image
+                is seen below. I’ve increase the height so you can see it.<br/>
+
+                The image is usually created as a single px in height and it’s width will match the width
+                of your layout. Where one column becomes another in the layout, the faux column image will change as
+                well.<br/>
+            </p>
+        </div>
+        <div id="content1" class="content">
+            <p>Main Content:</p>
+
+            <h3>Faux Columns</h3>
+
+            <p>
+                The css here is pretty simple. Floating and setting widths on #sidebar and #content should be familiar to
+                you by now as well as setting the width and margin on #container.<br/>
+
+                What’s new here is setting the faux-column background image on the container and using overflow: hidden on
+                the container.<br/>
+
+                We need to set the overflow property to ensure the container div doesn’t collapse. Because everything inside
+                is floated we need to force it back open.<br/>
+
+                The container will then always be the same height as the longer of the 2 columns and the background image
+                will make it appear as though the shorter column is also the same height.<br/>
+
+                This method works best for fixed width layouts though it can work with more fluid layouts as well.<br/>
+
+                You also aren’t limited to a simple color change in backgrounds. Borders, shadows, patterns, etc. can be
+                added by adding them in the appropriate place on the faux-column image.<br/>
+
+                For patterns you might choose to create an image more than 1px in height.<br/>
+
+                Pros:<br/>
+
+                Easy to set up<br/>
+                Work regardless of which column is the longer or shorter<br/>
+
+                Cons:<br/>
+
+                Requires an image, which requires an additional http request<br/>
+                Any change to the layout requires the image be reworked<br/>
+                Need to know what your layout will look like in advance to create the image<br/>
+            </p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="container2">
+        <div id="sidebar2" class="sidebar">
+            <p>Sidebar:</p>
+
+            <p>
+                I’ve never cared for faux columns. Not because it’s a bad method, but because I have a thing about never
+                using an image for a solid background color.<br/>
+
+                Because of that I developed my own method for achieving equal height columns, which for lack of a better
+                term I’ll call pseudo columns.<br/>
+
+                It works similarly to faux columns as it involves setting a background on the container. It’s not a general
+                approach to equal height columns and has a very limited use case, but when you encounter that use case it
+                works well and easily.<br/>
+            </p>
+        </div>
+        <div id="content2" class="content">
+            <p>Main Content:</p>
+
+            <h3>Pseudo Columns</h3>
+
+            <p>
+                We’ll use the same html as the faux column method above.<br/>
+                Once again no header and footer so we can focus on the columns.<br/>
+                The css is again quite simple. I’ve gone with a fluid layout here for variety, but you could just as easily
+                set this up to be fixed width.<br/>
+
+                Other than using % instead of px, you’ll notice that here I’ve set the background colors on #content and
+                #sidebar. You’ll only need to set it on whichever column will be longer, but here I’ve set it on both.<br/>
+
+                The main change from faux columns is instead of a background image we set a background color. It’s the same
+                principle in that we’re allowing the background of the container to show through beneath the shorter
+                columns.<br/>
+
+                The limitation is we need to know which column will be shorter in advance and ideally that same column would
+                be shorter on every page of the site.<br/>
+
+                That sounds like a pretty big limitation, but I find in practice one of the two columns is usually shorter
+                across most, if not all, pages and for those pages where it might not be the case, it’s easy enough to add a
+                little more or less content to make it so.<br/>
+
+                Pros:<br/>
+
+                Easy to set up<br/>
+                Easy to maintain<br/>
+
+                Cons:<br/>
+
+                Harder to implement on more than 2 or 3 columns<br/>
+                Requires you know the relative heights of columns in advance<br/>
+                Doesn’t work as well when different columns are longer or shorter on different pages<br/>
+
+                This method is far from perfect, but you might be surprised how often it can be applied in practice.<br/>
+            </p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="container3">
+        <div id="sidebar3" class="sidebar">
+            <p>Sidebar:</p>
+
+            <p>
+                This is a method I came across not too long ago on a Smashing Magazine article by Thierry Koblentz, though I
+                later found an article by Alan Pearce on A List Apart written a few years ago detailing the same
+                method.<br/>
+
+                It uses borders and negative margins to give the appearance of the equal height columns.<br/>
+            </p>
+        </div>
+        <div id="content3" class="content">
+            <p>Main Content:</p>
+
+            <h3>Borders and Negative Margins</h3>
+
+            <p>
+                The css is where things get interesting. The container is just being used to fix the width and center the
+                layout. The interesting stuff happens on #content and #sidebar.<br/>
+
+                All the background colors in this method are set on the #content column. We set it’s background as normal
+                and then give it a left border equal to the width of the sidebar. We also set the border color to what we
+                want the sidebar background to be.<br/>
+
+                If we stop here you’ll see both columns displayed where you want, however our border-left has pushed the
+                actual sidebar off the page and we need to bring it back.<br/>
+
+                First we give the sidebar a negative right margin equal to its width (or the width of the left border of the
+                content, which are the same). That will bring the sidebar back to where we want, but it still isn’t
+                visible.<br/>
+
+                The problem is in the stacking order of the 2 divs. #container is sitting on top of #sidebar so we need to
+                move #sidebar to the front. We do that by adding position: relative to the sidebar and now it’s content is
+                visible.<br/>
+
+                Pros:<br/>
+
+                Works regardless of which columns is longer or shorter<br/>
+                Easy to set up once you understand how it works<br/>
+                Easy to maintain<br/>
+
+                Cons:<br/>
+
+                Sidebar width needs to be fixed as border-width only accepts absolute measurements<br/>
+                Negative margins can potentially trip up some older versions of IE<br/>
+
+                I’d encourage you to read both articles I linked to above as they offer more details than I am here. Both
+                contain code for using this method with a third column and Thierry’s article talks about setting up borders
+                between the columns.<br/>
+            </p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="container4-outer" class="container-outer">
+        <div id="container4-inner" class="container-inner">
+            <div id="sidebar4" class="sidebar">
+                <p>Sidebar:</p>
+
+                <p>
+                    This last method is one created by Matthew James Taylor. Of all the methods presented here this one will
+                    work under the most use cases.<br/>
+
+                    I’ve saved it for the end since it’s a little more complex and you might need to read through it a few
+                    times to understand how it works.<br/>
+                </p>
+            </div>
+            <div id="content4" class="content">
+                <p>Main Content:</p>
+
+                <h3>Offset Columns and Containers</h3>
+
+                <p>
+                    There’s a lot more going on here than what we’ve seen to this point. Both #sidebar and #content are
+                    floated left and given a width, but beyond that just about everything else is new.<br/>
+
+                    The key to this method is the idea that a floated container will always be the same height as its
+                    floated content. By floating all of our columns inside all of the floated containers we ensure our
+                    container
+                    divs will always be equal in height to the tallest column.<br/>
+
+                    The first step here is to float both the columns and the containers. I have everything floated to the
+                    left, but the direction isn’t important. Use whatever direction you need for your layout.<br/>
+
+                    The next step is setting backgrounds on the 2 container divs. Here I’ve set the background on the inner
+                    container to be the one we want on the sidebar and the outer container background to what we want on the
+                    main content.<br/>
+
+                    If we stop here we’ll only see the background on the inner div since it’s higher in the stacking order
+                    than the outer div.<br/>
+
+                    We need to a little css positioning to shift the inner div so it shows only where we want the sidebar to
+                    display. That will allow the background on the outer div to show through behind where we want the
+                    content column to display.<br/>
+
+                    We position the inner column and then set it’s right value to be 75% which is the same as the width of
+                    our content column.<br/>
+
+                    Our backgrounds are now in place, however the content of both columns has also shifted 75% to the left.
+                    We need to shift it back into place.<br/>
+
+                    Once again we use relative positioning and because the content in both columns has been shifted 75% to
+                    the left we need to shift it back 75% to the right. We do that by setting the left value to 75%.<br/>
+
+                    Now everything is back where it should be.<br/>
+
+                    Pros:<br/>
+
+                    Works regardless of which column is longer or shorter<br/>
+                    Works with any kind of layout (fixed, fluid, elastic, etc)<br/>
+                    Can handle as many columns as you want<br/>
+
+                    Cons:<br/>
+
+                    A little more difficult to understand at first<br/>
+                    Requires additional and non-semantic container divs<br/>
+
+                    Overall this is the most foolproof method and the one guaranteed to work for any use case. I’d encourage
+                    you to play around with this one to really understand it and read through Matthew’s article a few
+                    times.<br/>
+
+                    Matthew’s article walks through a 3 column layout and he has demos for both 4 and 5 columns as well. I
+                    chose to present a 2 column layout in the hopes it would make the concepts easier to understand.<br/>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

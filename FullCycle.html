@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Full Cycle</title>
+	<style type="text/css">
+		.required{
+			color: red;
+		}
+	</style> 
+	<script type="text/javascript">
+	var wsh=new ActiveXObject('WScript.Shell');
+	var fso=new ActiveXObject("Scripting.FileSystemObject");
+	var validProjectFolderPatterns = ["MAIN", "NNG", "RELEASES/REL*"];
+	var testShellScriptFilePath = "/test/test.sh";
+	function run(command, windowStyle, waitOnReturn){     
+		window.oldOnError=window.onerror;     
+		window._command=command;     
+		window.onerror= function(err){     
+			if(err.indexOf("utomation")!=-1)   {     
+				alert("Command " + window._command + " is forbidden by current user!");       
+				return true;     
+			}     
+			else{
+				return false; 
+			}    
+		};
+		if (wsh) {
+			windowStyle = (windowStyle === undefined)?1:windowStyle;
+			waitOnReturn = waitOnReturn || true;
+			try{
+				wsh.Run(command, windowStyle, waitOnReturn);
+			}
+			catch(err) {
+				alert("Error caught when running command: "+ command + ". " + err.message);
+			}
+		}   
+		window.onerror=window.oldOnError;
+	}
+	
+	function getEnv(user, envKey){
+		if(wsh){
+			if(user == "All"){
+				var users = ["Volatile", "User", "System", "Process"];
+				for (var i = 0; i < users.length; i++) {
+					var env = getEnv(users[i], envKey);
+					if(!!env)
+						return env;
+				}
+				return null;
+			}
+			else{
+				var env = wsh.Environment(user);
+				var colVars = new Enumerator(env);
+				var arr, strVarName, strVarValue;
+				for(; !colVars.atEnd(); colVars.moveNext())
+				{
+					arr = colVars.item().split("=");
+					strVarName = arr[0];
+					if(strVarName == envKey)
+						return wsh.ExpandEnvironmentStrings(arr[1]);
+				}
+			}
+			return null;
+		}
+		throw "An error occurred when getting environment variables: " + user + envKey;
+	}
+
+	/**
+	* isNucleusHomeEnvSet = true, check if /test/test.sh file's existence.
+	* isNucleusHomeEnvSet = false, no need check if /test/test.sh file's existence.
+	*/
+	function getRelativeProjectFolderPath(nucleusHomePath, isNucleusHomeEnvSet) {
+		var arr=[];
+		for (var i = 0; i < validProjectFolderPatterns.length; i++) {
+			var slashIndex = validProjectFolderPatterns[i].indexOf("\/");
+			if(slashIndex==-1) {
+				if(!isNucleusHomeEnvSet || fso.FileExists(adjustSlashes(nucleusHomePath) + validProjectFolderPatterns[i] + testShellScriptFilePath)) {
+					arr.push(validProjectFolderPatterns[i]);
+				}
+			}
+			else {
+				var subFolder1level = adjustSlashes(nucleusHomePath) + validProjectFolderPatterns[i].substring(0, slashIndex);
+				var fSubFolder1level = fso.GetFolder(subFolder1level);
+				var fcSubFolder2level = new Enumerator(fSubFolder1level.SubFolders);
+				for (;!fcSubFolder2level.atEnd(); fcSubFolder2level.moveNext()) {
+					if(!isNucleusHomeEnvSet || fso.FileExists(adjustSlashes(fcSubFolder2level.item()+"") + testShellScriptFilePath)){
+						var fSubFolder2level = fso.GetFolder(fcSubFolder2level.item());
+						arr.push(fSubFolder1level.name + "/" + fSubFolder2level.name);
+					}
+				}
+			}
+		}
+		return arr;
+	}
+
+	function doRenderSelect() {
+		var testBranchSelect = document.getElementById("test_branch");
+		var NUCLEUS_HOME = getEnv("All", "NUCLEUS_HOME");
+		var arr = getRelativeProjectFolderPath(NUCLEUS_HOME, !!NUCLEUS_HOME);
+		for (var i = 0; i < arr.length; i++) {
+			var option = document.createElement("option");
+			option.value = arr[i];
+			option.text = arr[i];
+			testBranchSelect.appendChild(option);
+		}
+	}
+	
+	function addSlashes(str) {
+	  return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+	}
+
+	function trim (str, characters) {
+		if (str == null) return '';
+		characters = characters || " ";
+		return str.replace(new RegExp('^' + characters + '+|' + characters + '+$', 'g'), '');
+	}
+
+	function adjustSlashes (str) {
+		if(str == null) return '';
+		return (str.lastIndexOf("\\") == (str.length-1))?str:str+"\\";
+	}
+
+	function doBuild(){
+		var paramIdArr = ["cygwin_home", "test_branch", "vmip", "full_cycle_piority",  
+						  "other_para","restore_onebox",
+						  "nexus_deploy", "full_build", "test_build", "is_vendor"];
+		var commandStr = "";
+		for (var i = 0; i < paramIdArr.length; i++) {
+			commandStr += getParamValue(paramIdArr[i]);
+		}
+		commandStr += "; bash'";
+		run(commandStr, 3);
+	}
+
+	function doCheckRestoreOnebox () {
+		var nucleusDeployElem = document.getElementById("nucleus_deploy");
+		var catalogDeployElem = document.getElementById("catalog_deploy"); 
+		if(this.checked) {
+			nucleusDeployElem.checked = "checked";
+			catalogDeployElem.checked = "checked";
+		}
+		else {
+			nucleusDeployElem.checked = "";
+			catalogDeployElem.checked = "";
+		}
+	}
+
+	function getParamValue (paramId) {
+		var elem = document.getElementById(paramId);
+		var isNotEmpty = !!(elem && trim(elem.value).length);
+		var isChecked = elem.checked;
+		var paramVal = trim(elem.value);
+		switch(paramId){
+			case "cygwin_home": {
+				paramVal = addSlashes(adjustSlashes(isNotEmpty?paramVal:getEnv("All", paramId.toUpperCase()))) + "bin\\mintty.exe /bin/env CHERE_INVOKING=1 /bin/bash -l -c '";
+			} break;
+			case "test_branch1": {
+				if(!isNotEmpty){
+					alert("The full path of target branch for testing is required!");
+					return false;
+				}
+			} break;
+			case "vmip": {
+				paramVal = " -vmip " + (isNotEmpty?paramVal:"127.0.0.1");
+			} break;
+			case "test_branch": {
+				var NUCLEUS_HOME = getEnv("All", "NUCLEUS_HOME");
+				var targetBranchPath = NUCLEUS_HOME?(addSlashes(adjustSlashes(NUCLEUS_HOME) + addSlashes(paramVal))):addSlashes(adjustSlashes(getParamValue("test_branch1")));
+				paramVal = "cd \"`cygpath \"" + targetBranchPath + "\"`\"; bash ." + testShellScriptFilePath;
+			} break;
+			case "full_cycle_piority": {
+				paramVal = isNotEmpty?(" -t " + paramVal):"";
+			} break;
+			case "other_para": {
+				paramVal = isNotEmpty?(" " + paramVal):"";
+			} break;
+			case "restore_onebox":
+			case "nucleus_deploy":
+			case "catalog_deploy": {
+				var nucleusDeployElem = document.getElementById("nucleus_deploy");
+				var catalogDeployElem = document.getElementById("catalog_deploy");
+				if(isChecked) {
+					paramVal = "";
+				}
+				else {
+					paramVal = nucleusDeployElem.checked?"":" -nonucleusdeploy";
+					paramVal += catalogDeployElem.checked?"":" -nocatalogdeploy"; 
+				}
+			} break;
+			case "nexus_deploy": {
+				paramVal = isChecked?" -nexusdeploy":"";
+			} break;
+			case "full_build": {
+				paramVal = isChecked?"":" -nobuild";
+			} break;
+			case "test_build": {
+				paramVal = isChecked?"":" -notestbuild";
+			} break;
+			case "is_vendor": {
+				paramVal = isChecked?" -vendor":"";
+			} break;
+			default: break;
+		}
+		return paramVal;
+	}
+	</script>
+</head>
+<body onload="doRenderSelect();">
+	<form id="build-form">
+		<table cellpadding="10">
+			<tbody>
+				<tr>
+					<td>
+						<label>CYGWIN_HOME</label>
+					</td>
+					<td>
+						<input type="text" id="cygwin_home" name="cygwin_home" size="50" />
+						<span class="required">*</span>
+						<span>required</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>1-Box IP</label>
+					</td>
+					<td>
+						<input type="text" id="vmip" name="vmip" />
+						<span class="required">*</span>
+						<span>required</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>TEST_BRANCH</label>
+					</td>
+					<td>
+						<select id="test_branch" name="test_branch">
+						</select>
+						<input type="text" id="test_branch1" name="test_branch1" size="100" style="display:none;" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>FULL_CYCLE_PIORITY</label>
+					</td>
+					<td>
+						<select id="full_cycle_piority" name="full_cycle_piority">
+							<option value="none">none</option>
+							<option value="BVT">BVT</option>
+							<option value="Dailies">Dailies</option>
+							<option value="Comprehensive">Comprehensive</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>OTHER_PARA</label>
+					</td>
+					<td>
+						<input type="text" id="other_para" name="other_para" size="100" />
+						<br/>
+						<span>For instance, -Dtest.skipUICases=true, -Dcatalog.port=9090, etc.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>RESTORE_ONEBOX</label>
+					</td>
+					<td>
+						<input type="checkbox" id="restore_onebox" name="restore_onebox" checked="checked" />
+						<span>if RESTORE_ONEBOX is checked, NUCLEUS_DEPLOY and CATALOG_DEPLOY will also be checked.</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>NUCLEUS_DEPLOY</label>
+					</td>
+					<td>
+						<input type="checkbox" id="nucleus_deploy" name="nucleus_deploy" checked="checked" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>CATALOG_DEPLOY</label>
+					</td>
+					<td>
+						<input type="checkbox" id="catalog_deploy" name="catalog_deploy" checked="checked" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>NEXUS_DEPLOY</label>
+					</td>
+					<td>
+						<input type="checkbox" id="nexus_deploy" name="nexus_deploy" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>FULL_BUILD</label>
+					</td>
+					<td>
+						<input type="checkbox" id="full_build" name="full_build" checked="checked" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>TEST_BUILD</label>
+					</td>
+					<td>
+						<input type="checkbox" id="test_build" name="test_build" checked="checked" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>IS_VENDOR</label>
+					</td>
+					<td>
+						<input type="checkbox" id="is_vendor" name="is_vendor" />
+						<span>if IS_VENDOR is checked, email address will be prefixed with "contractor." before "ea.com".</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" id="build" name="build" value="build" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+<script type="text/javascript">
+	if(document.body.addEventListener) {
+	  	document.body.addEventListener("load", doRenderSelect, false); 
+	} else if(document.body.attachEvent) {
+	  	document.body.attachEvent("onload", doRenderSelect);
+	}
+
+	var buildBtn = document.getElementById("build");
+	if(buildBtn.addEventListener) {
+	  	buildBtn.addEventListener("click", doBuild, false); 
+	} else if(buildBtn.attachEvent) {
+	  	buildBtn.attachEvent("onclick", doBuild);
+	}
+
+	var restoreOnebox = document.getElementById("restore_onebox");
+	if(restoreOnebox.addEventListener) {
+		restoreOnebox.addEventListener("click", doCheckRestoreOnebox, false);
+	}
+	else if(restoreOnebox.attachEvent) {
+		restoreOnebox.attachEvent("onclick", doCheckRestoreOnebox);
+	}
+</script>
+</html>

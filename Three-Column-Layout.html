@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Three Column Layout</title>
+    <style type="text/css">
+        /* 方式1：双飞翼布局方式（兼容IE6） */
+        .three-col-middle1 {
+            float: left;
+            width: 100%;
+        }
+        .three-col-left1 {
+            float: left;
+            width: 100px;
+            margin-left: -100%;
+            position: relative;
+        }
+        .three-col-right1 {
+            float: left;
+            width: 200px;
+            margin-left: -200px;
+            position: relative;
+        }
+        .three-col-middle-wrapper1 {
+            /* margin-left、margin-right的值设置和左右div宽度对应 */
+            margin: 0 200px 0 100px;
+        }
+
+
+        /* 方式2：纯粹浮动方式 */
+        .three-col-left2 {
+            float: left;
+            width: 100px;
+        }
+        .three-col-right2 {
+            float: right;
+            width: 200px;
+        }
+        .three-col-middle2 {
+            width: 100%;
+            /* margin-left、margin-right的值设置和左右div宽度对应 */
+            margin: 0 200px 0 100px;
+        }
+
+
+        /* 方式3：BFC方式 */
+        .three-col-left3 {
+            float: left;
+            width: 100px;
+        }
+        .three-col-right3 {
+            float: right;
+            width: 200px;
+        }
+        .three-col-middle3 {
+            overflow: hidden;
+        }
+
+
+        /* 方式4：CSS 3 flexbox方式 */
+        .flex {
+            display: flex;
+            flex-flow: row;
+        }
+        .three-col-left4 {
+            width: 100px;
+        }
+        .three-col-middle4 {
+            flex: 1;
+        }
+        .three-col-right4 {
+            width: 200px;
+        }
+
+
+        /* 与三列布局无关的CSS: CSS reset, 背景颜色仅为区分, 无需关注高度 */
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        #container1, #container2, #container3, #container4 {
+            height: 100px;
+            margin: 10px 0 10px;
+        }
+        .three-col-left1, .three-col-left2, .three-col-left3, .three-col-left4 {
+            background-color: red;
+            height: 100%;
+        }
+        .three-col-middle1, .three-col-middle2, .three-col-middle3, .three-col-middle4 {
+            background-color: green;
+            height: 100%;
+        }
+        .three-col-right1, .three-col-right2, .three-col-right3, .three-col-right4 {
+            background-color: blue;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container1">
+        <div class="three-col-middle1">
+            <div class="three-col-middle-wrapper1">此区域内容宽度自适应（中间div在文档结构中置前，且内嵌子元素），可实现任意3列或2列布局</div>
+        </div>
+        <div class="three-col-left1">此区域内容靠左且宽度固定</div>
+        <div class="three-col-right1">此区域内容靠右且宽度固定</div>
+    </div>
+
+    <div id="container2">
+        <div class="three-col-left2">此区域内容靠左且宽度固定</div>
+        <div class="three-col-right2">此区域内容靠右且宽度固定</div>
+        <div class="three-col-middle2">此区域内容宽度自适应（中间div在文档结构中置后）</div>
+    </div>
+
+    <div id="container3">
+        <div class="three-col-left3">此区域内容靠左且宽度固定</div>
+        <div class="three-col-right3">此区域内容靠右且宽度固定</div>
+        <div class="three-col-middle3">此区域内容宽度自适应（中间div在文档结构中置后）</div>
+    </div>
+
+    <div id="container4" class="flex">
+        <div class="three-col-left4">此区域内容靠左且宽度固定</div>
+        <div class="three-col-middle4">此区域内容宽度自适应（无需改变div在文档结构中的顺序）</div>
+        <div class="three-col-right4">此区域内容靠右且宽度固定</div>
+    </div>
+</body>
+</html>

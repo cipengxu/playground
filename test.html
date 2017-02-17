@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+    var num = Number("12345a");
+    var bl0 = Boolean(num);
+    var bl1 = Boolean(1/0);
+    var bl2 = Boolean({}+[]);
+    var bl3 = Boolean([]+{});
+    console.log(bl0);
+    console.log(bl1);
+    console.log(bl2);
+    console.log(bl3);
+
+    if(1/0)
+        console.log("if:"+true);
+    else
+        console.log("else:"+false);
+
+    console.log(1/0);
+    console.log(1/0 == 2/0);
+    console.log(1/0 == NaN);
+    console.log(isNaN(num));
+    console.log("NaN != NaN so num == num return:"+(num == num));
+    console.log(isNaN(1/0));
+    console.log(Number(null));
+    console.log(Number(undefined));
+    console.log("1234567".replace(/([0-9])/g,"$1,").split(",").join(","));
+    console.log(parseInt("070"));
+    console.log(parseInt("070",8));
+    console.log(parseInt("070") == 56);
+    console.log(parseInt("070",8) == 56);
+
+    var obj = Object();
+    var v;
+    console.log(obj);
+    console.log(v);
+
+    var b = 1;
+    function add(a , b) {
+        a = 10;
+        console.log("a:"+a);
+        console.log("arguments[0]:"+arguments[0]);
+
+        arguments[0] = 11;
+        console.log("a:"+a);
+        console.log("arguments[0]:"+arguments[0]);
+
+        console.log("a+b:"+(a+b));
+
+        b = 20;
+        console.log("b:"+b);
+        console.log("arguments[1]:"+arguments[1]);
+
+        arguments[1] = 21;
+        console.log("b:"+b);
+        console.log("arguments[1]:"+arguments[1]);
+
+        console.log("a+b:"+(a+b));
+    }
+    add(1,b);
+    console.log("b:"+b);
+
+    function addTen(num) {
+        num += 10;
+        return num;
+    }
+    var count = 20;
+    var result = addTen(count);
+    console.log(count); //20 - no change
+    console.log(result); //30
+
+    function setName(obj) {
+        obj.name = "Nicholas";
+    }
+    var person = new Object();
+    setName(person);
+    console.log(person.name); //"Nicholas"
+
+    function setName1(obj) {
+        obj.name = "Nicholas";
+        obj = new Object();
+        obj.name = "Greg";
+    }
+    var person1 = new Object();
+    setName1(person1);
+    console.log(person1.name); //"Nicholas"
+
+    function change(color, font_family) {
+        console.log(color);
+        console.log(font_family);
+        console.log(arguments);
+        var color = "red";
+        font_family = "Arial"
+        var font_size="12pt";
+        border = "2px";
+        console.log(color);
+        console.log(font_family);
+        console.log(arguments);
+    }
+    change("blue", "Helvetica");
+
+    if(false){
+        var bar = "foo";
+    }
+    console.log(bar);
+
+    function add0(num1, num2) {
+        var sum = num1 + num2;
+        return sum;
+    }
+    var result1 = add0(10, 20); //30
+    //console.log(sum); //causes an error since sum is not a valid variable
+
+    // If the var keyword is omitted from this example, sum becomes accessible after add() has been called
+    // Initializing variables without declaring them using var keyword is a very common mistake in
+    // JavaScript programming and can lead to errors. It ’ s advisable to always declare
+    // variables before initializing them to avoid such issues.
+    function add1(num1, num2) {
+        sum1 = num1 + num2;
+        return sum1;
+    }
+    var result2 = add1(10, 20); //30
+    console.log(sum1); //30
+
+    var color = "blue";
+    function getColor(){
+        // var color = "red";
+        return color;
+        function color(){
+            return "yellow";
+        }
+    }
+    console.log(getColor()); //"red" //color()
+
+    var colors = ["red", "blue", "green"]; //creates an array with three strings
+    colors.length = 2;
+    console.log(colors[2]); //undefined
+    colors.length = 3;
+    console.log(colors[2]);
+    console.log(colors.toString());
+
+    //数组1、push-pop实现栈操作；2、push-shift实现队列操作；3、unshift头部插入并返回插入后的length;
+    var colors1 = new Array();
+    console.log(colors1.push("red","green"));
+    console.log(colors1.push("blue"));
+    // alert(colors1);
+    // console.log(colors1);
+    console.log(colors1.pop());
+    // alert(colors1);
+    // console.log(colors1);
+
+    console.log(colors1.push("red","green"));
+    console.log(colors1.push("blue"));
+    // alert(colors1);
+    // console.log(colors1);
+    console.log(colors1.shift());
+    // alert(colors1);
+    // console.log(colors1);
+
+    console.log(colors1.unshift("red","green"));
+    console.log(colors1.unshift("blue"));
+    // alert(colors1);
+    // console.log(colors1);
+    console.log(colors1.shift());
+    // alert(colors1);
+    // console.log(colors1);
+
+    var values0 = [1, 2, 3, 4, 5];
+    values0.reverse();
+    console.log(values0);
+
+    // sort函数默认的比较方式由String()转换之后进行的比较
+    var values1 = [0, 1, 5, 10, 15];
+    values1.sort();
+    console.log(values1); //0,1,10,15,5
+
+    values1.sort(function (value1, value2) {
+        if (value1 < value2) {
+            return -1;
+        } else if (value1 > value2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    console.log(values1); //0,1,5,10,15
+
+    var people1 = {
+        toLocaleString : function () {
+            return "Nikolaos";
+        },
+        toString : function() {
+            return "Nicholas";
+        }
+    };
+    var people2 = {
+        toLocaleString : function () {
+            return "Grigorios";
+        },
+        toString : function() {
+            return "Greg";
+        }
+    };
+    var people = [people1, people2];
+    console.log(people); //Nicholas,Greg
+    console.log(people.toString()); //Nicholas,Greg
+    console.log(people.toLocaleString()); //Nikolaos,Grigorios
+
+    function Person(name, birthDate, salary) {
+        this.name = name;
+        this.birthDate = new Date(birthDate+" 00:00:00");
+        this.salary = salary;
+    }
+    Person.prototype.toString = function(){
+        return new Array(this.name, this.birthDate, this.salary).toString();
+    };
+    Person.prototype.toLocaleString = function(){
+        return new Array(this.name, new Array(this.birthDate.getFullYear(), this.birthDate.getMonth()+1, this.birthDate.getDate()).join("/"), this.salary).join(",");
+    };
+    Person.prototype.valueOf = function(){
+        return this.birthDate.valueOf();
+    };
+
+    var values2 = [
+    new Person("Jim","06/11/1990",10000),
+    new Person("Lily","02/25/1994",4000),
+    new Person("Lihua","02/25/1994",4000),
+    new Person("Tom","01/05/1988",8000),
+    new Person("10","01/05/1988",8000),
+    new Person("5","01/05/1988",8000),
+    new Person("15","01/05/1988",8000),
+    new Person("Green","02/25/1994",8000),
+    new Person("Lucy","06/11/1992",12000),
+    new Person("Kate","08/19/1985",20000),
+    new Person("Lauwaren","02/25/1994",4000)
+    ];
+    values2.sort(function(value1, value2){
+        if(value1.birthDate.valueOf() == value2.birthDate.valueOf()){//即出生日期相等，按薪资排序
+            if(value1.salary == value2.salary){//薪资相同,按姓名排序
+                if(value1.name < value2.name)
+                    return -1;
+                else if(value1.name > value2.name)
+                    return 1;
+                else
+                    return 0;
+            }
+            return value1.salary - value2.salary;
+        }
+        return value1-value2;//否则，按出生日期排序
+    });
+    console.log(values2);
+    console.log(values2.toString());
+    console.log(values2.toLocaleString());
+
+    var colors2 = ["red", "green", "blue"];
+    var colors3 = colors1.concat("yellow", ["black", "brown"]);
+    console.log(colors2); //red,green,blue
+    console.log(colors3); //red,green,blue,yellow,black,brown
+
+    var colors4 = ["red", "green", "blue", "yellow", "purple"];
+    var colors5 = colors4.slice(1);
+    var colors6 = colors4.slice(1,4);
+    var colors7 = colors4.slice(-2,-1);
+    var colors8 = colors4.slice(3,4);
+    console.log(colors5); //green,blue,yellow,purple
+    console.log(colors6); //green,blue,yellow
+    console.log(colors7);
+    console.log(colors8);
+
+    var colors9 = ["red", "green", "blue"];
+    var removed = colors9.splice(0,1); //remove the first item
+    console.log(colors9); //green,blue
+    console.log(removed); //red - one item array
+    removed = colors9.splice(1, 0, "yellow", "orange"); //insert two items at position 1
+    console.log(colors9); //green,yellow,orange,blue
+    console.log(removed); //empty array
+    removed = colors9.splice(1, 1, "red", "purple"); //insert two values, remove one
+    console.log(colors9); //green,red,purple,orange,blue
+    console.log(removed); //yellow - one item array
+
+    // Date.parse 方法再尝试解析字符串为日期时，若字符串不能代表合法的日期，返回NaN;
+    // 否则返回日期时间戳毫秒数（当地时区）
+    // 对于"月份 0 年份"，部分浏览器按 =="月份-1 月份最大天数 年份"处理
+    // 对于"月份 32 年份"，部分浏览器按 =="月份+1 32-上月份最大天数 年份"处理
+    // 对于"月份 月份最大天数+n(n>0) 年份"，部分浏览器按 =="月份+1 n 年份"处理
+    var someDate = new Date(Date.parse("May 25, 2004"));
+    var someDate1 = new Date("May 25, 2004"); //效果和上同
+    var someDate2 = new Date("January 0, 2007");//chrome INVALID
+    var someDate3 = new Date("January 32, 2007");//chrome INVALID
+    var someDate4 = new Date("February 29, 2007");//闰年判断，2007 为平年，2月28天
+    var someDate5 = new Date("February 30, 2007");
+    var someDate6 = new Date("February 31, 2007");
+    var someDate7 = new Date("February 32, 2007");
+    var someDate8 = new Date("March 32, 2007");
+    var someDate9 = new Date("April 32, 2007");
+    console.log(someDate);
+    console.log(someDate1);
+    console.log(someDate2);
+    console.log(someDate3);
+    console.log(someDate4);
+    console.log(someDate5);
+    console.log(someDate6);
+    console.log(someDate7);
+    console.log(someDate8);
+    console.log(someDate9);
+
+    var pattern1 = /\[bc\]at/i;
+    console.log(pattern1.global); //false
+    console.log(pattern1.ignoreCase); //true
+    console.log(pattern1.multiline); //false
+    console.log(pattern1.lastIndex); //0
+    console.log(pattern1.source); //"\[bc\]at"
+    var pattern2 = new RegExp("\\[bc\\]at", "i");
+    console.log(pattern2.global); //false
+    console.log(pattern2.ignoreCase); //true
+    console.log(pattern2.multiline); //false
+    console.log(pattern2.lastIndex); //0
+    console.log(pattern2.source); //"\[bc\]at"
+
+    var text = "mom and dad and baby";
+    var pattern3 = /mom( and dad( and baby)?)?/gi;
+    var matches3 = pattern3.exec(text);
+    console.log(matches3.index); //0
+    console.log(matches3.input); //"mom and dad and baby"
+    console.log(matches3[0]); //"mom and dad and baby"
+    console.log(matches3[1]); //" and dad and baby"
+    console.log(matches3[2]); //" and baby"
+
+    var text1 = "this has been a short summer";
+    var pattern4 = /(.)hort/g;
+    /*
+    * Note: Opera doesn’t support input, lastMatch, lastParen, or multiline.
+    * Internet Explorer doesn’t support multiline.
+    */
+    if (pattern4.test(text1)){
+        console.log(RegExp.input); //this has been a short summer
+        console.log(RegExp.leftContext); //this has been a
+        console.log(RegExp.rightContext); // summer
+        console.log(RegExp.lastMatch); //short
+        console.log(RegExp.lastParen); //s
+        console.log(RegExp.multiline); //false
+    }
+
+    var text2 = "this has been a short summer";
+    var pattern5 = /(..or(.))/g;
+    if (pattern5.test(text2)){
+        console.log(RegExp.$1); //short
+        console.log(RegExp.$2); //t
+    }
+
+    /*
+    Function declarations are read and available in an execution context before any code is executed, whereas function expressions aren ’ t complete until the execution reaches that line of code
+    */
+    function addSomeNumber(num, num1){
+        return num + 100 + num1;
+    }
+    function addSomeNumber(num) {
+        return num + 200;
+    }
+    console.log(addSomeNumber(100, 10)); //300 理解定义式函数定义在加载顺序上按后定义覆盖先定义，且是比其他顺序执行的代码更优先加载
+
+    var addSomeNumber1 = function(num, num1) {
+        return num + 100 + num1;
+    };
+    function addSomeNumber1(num) {
+        return num + 200;
+    }
+    console.log(addSomeNumber1(100, 10)); //210 理解声明式函数定义，本质是赋值语句，因此晚于定义式函数定义加载，即声明式会覆盖定义式，即使在代码中的顺序看起来是声明式优先于定义式
+
+    function createComparisonFunction(propertyName) {
+        return function(object1, object2){
+            var value1 = object1[propertyName];
+            var value2 = object2[propertyName];
+            if (value1 < value2){
+                return -1;
+            } else if (value1 > value2){
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+    }
+    var data = [{name: "Zachary", age: 28}, {name: "Nicholas", age: 29}];
+    data.sort(createComparisonFunction("name"));
+    console.log(data[0].name); //Nicholas
+    data.sort(createComparisonFunction("age"));
+    console.log(data[0].name); //Zachary
+
+    /*Primitive Wrapper Types：它不是真正的对象，但可以像对象一样用，比如可以调用方法
+    Three special reference types are designed to easy interaction with primitive values: the Boolean type,
+    the Number type, and the String type. These types can act like the other reference types described
+    in this chapter, but they also have a special behavior related to their primitive-type equivalents.
+    任何以上3类原子包裹类型的实例被访问时，会经历以下3个过程（以String为例）：
+    1.在内存中临时创建一个String的实例
+    2.调用实例拥有的方法或访问实例拥有的属性
+    3.销毁该实例
+    真正的对象在new实例化操作之后会驻留在内存中，直至对象脱离了作用域范围；
+    而原子包裹类型在实例化之后，生命周期在该实例被访问完的哪一行代码执行之后就销毁结束。
+    */
+    var s0 = "some text";
+    s0.color = "red";
+    console.log(s0.color); //undefined
+    var s1 = new String("some text");
+    s1.color = "red";
+    console.log(s1.color); //red
+
+    var falseObject = new Boolean(false);
+    var result3 = falseObject && true;
+    console.log(result3); //true
+    result3 = falseObject.valueOf() && true;
+    console.log(result3); //false;
+    console.log(typeof falseObject); //object
+    console.log(falseObject instanceof Boolean); //true
+    var falseValue = false;
+    result3 = falseValue && true;
+    console.log(result3); //false
+    console.log(typeof falseValue); //boolean
+    console.log(falseValue instanceof Boolean); //false
+
+    // slice 和 substring 参数类似，都是下标含义；substr 参数1是下标，参数2是要返回字符串长度
+    // 以下({arg}=string.length)含义是若无{arg}参数，则用string.length作为默认参数值传入
+    // slice(start, end)
+    // 1.无负参数，return start<(end=string.length)?"":[start, (end=string.length)-1];
+    // 2.任意负参数arg，arg+=string.length,再slice(arg1,arg2)转步骤1;
+    // substring(start, stop)
+    // 1.无负参数，return (stop=string.length)-1<=0?"":[start, (stop=string.length)-1];
+    // 2.任意负参数arg，arg=0,再substring(arg1,arg2)转步骤1;
+    // substr(start, length)
+    // 1.无负参数，return start+(length=string.length)>string.length?[start, string.length-1]:[start, start+(length=string.length)-1]
+    // 2.start<0,start+=string.length; length<0,length=0,在substr(arg1,arg2)转步骤1;
+    var stringValue = "hello world";
+    console.log(stringValue.slice(3)); //"lo world"
+    console.log(stringValue.substring(3)); //"lo world"
+    console.log(stringValue.substr(3)); //"lo world"
+    console.log(stringValue.slice(3, 7)); //"lo w"
+    console.log(stringValue.substring(3,7)); //"lo w"
+    console.log(stringValue.substr(3, 7)); //"lo worl"
+    console.log(stringValue.slice(-3)); //"rld"
+    console.log(stringValue.substring(-3)); //"hello world"
+    console.log(stringValue.substr(-3)); //"rld"
+    console.log(stringValue.slice(3, -4)); //"lo w"
+    console.log(stringValue.substring(3, -4)); //"hel"
+    console.log(stringValue.substr(3, -4)); //"" (empty string)
+    console.log(stringValue.slice(3, -9)); //"" (empty string)
+    console.log(stringValue.substring(3, -9)); //"hel"
+    console.log(stringValue.substr(3, -9)); //"" (empty string)
+    console.log(stringValue.slice(-3, -4)); //"" (empty string)
+    console.log(stringValue.substring(-3, -4)); //"" (empty string)
+    console.log(stringValue.substr(-3, -4)); //"" (empty string)
+    console.log(stringValue.slice(-3, -9)); //"" (empty string)
+    console.log(stringValue.substring(-3, -9)); //"" (empty string)
+    console.log(stringValue.substr(-3, -9)); //"" (empty string)
+    console.log(stringValue.slice(-4, -3)); //"o"
+    console.log(stringValue.substring(-4, -3)); //"" (empty string)
+    console.log(stringValue.substr(-4, -3)); //"" (empty string)
+
+    // indexOf(searchvalue,fromindex=0) 0=<fromindex<string.length
+    // lastIndexOf(searchvalue,fromindex=string.length-1) 0=<fromindex<string.length
+    console.log(stringValue.indexOf("o")); //4
+    console.log(stringValue.lastIndexOf("o")); //7
+    console.log(stringValue.indexOf("o",6)); //7
+    console.log(stringValue.lastIndexOf("o",6)); //4
+
+    var text3 = "cat, bat, sat, fat";
+    var pattern6 = /.at/;
+    //same as pattern.exec(text)
+    var matches6 = text3.match(pattern6);
+    console.log(matches6.index); //0
+    console.log(matches6[0]); //"cat"
+    console.log(pattern6.lastIndex); //0
+    var pos = text3.search(pattern6);
+    console.log(pos); //0
+
+    // string.replace(arg1, arg2);
+    // arg1:字符串或RegExp对象，arg2:字符串或function(match, pos, originalText){return 字符串}
+    var text4 = "cat;     bat; sat;  hat;gat and fat is the best.";
+    var pattern7 = /(.at;\s*)/g;
+    console.log(text4.replace(pattern7,function(match, pos, originalText) {
+        return match.replace(/(;\s*)/g, ", ");
+    })); //cat, bat, sat, hat, gat and fat is the best.
+    console.log(text4.replace(/At;\s*/i,"$`")); //ccbat; sat;  hat;gat and fat is the best.
+    console.log(text4.replace(/At;\s*/i,"$'")); //cbat; sat;  hat;gat and fat is the best.bat; sat;  hat;gat and fat is the best.
+    function htmlEscape(text){
+        return text.replace(/[<>"&]/g, function(match, pos, originalText){
+            switch(match){
+                case "<":
+                return "&lt;";
+                case ">":
+                return "&gt;";
+                case "&":
+                return "&amp;";
+                case "\"":
+                return "&quot;";
+            }
+        });
+    }
+    console.log(htmlEscape(" < p class=\"greeting\" > Hello world! < /p > "));
+    //" & lt;p class= & quot;greeting & quot; & gt;Hello world! & lt;/p & gt";
+    var colorText = "red,blue,green,yellow";
+    var colors10 = colorText.split(","); //["red", "blue", "green", "yellow"]
+    var colors11 = colorText.split(",", 2); //["red", "blue"]
+    var colors12 = colorText.split(/[^\,]+/); //["", ",", ",", ",", ""]
+    console.log(colors12);
+
+    var stringValue1 = "yellow";
+    console.log(stringValue1.localeCompare("brick")); //1
+    console.log(stringValue1.localeCompare("yellow")); //0
+    console.log(stringValue1.localeCompare("zoo")); //-1
+
+    console.log(String.fromCharCode(104, 101, 108, 108, 111)); //"hello"
+
+    // Global对象包含isNaN(),isFinite(),parseInt(),parseFloat(),encodeURI(),encodeURIComponent(),decodeURI(),decodeURIComponent()方法,escape(),unescape()已被废弃
+    // 所有定义在全局的变量或方法都是Global对象的属性
+    // encodeURI 不编码URI中的指定特殊字符，如":" "/" "#" "?"等，通常用于整个URI
+    // encodeURIComponent 则编码任何特殊字符，包含URI中指定的特殊字符，通常用于被附加到URI上的字符串
+    var uri = "http://www.wrox.com/illegal value.htm#start";
+    //"http://www.wrox.com/illegal%20value.htm#start"
+    console.log(encodeURI(uri));
+    //"http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start"
+    console.log(encodeURIComponent(uri));
+    // Global 对象所包含的属性, Global目前无法直接访问，浏览器通过window对象的一部分实现了Global
+    // Property Description
+    // undefined The special value undefined
+    // NaN The special value NaN
+    // Infinity The special value Infinity
+    // Object Constructor for Object
+    // Array Constructor for Array
+    // Function Constructor for Function
+    // Boolean Constructor for Boolean
+    // String Constructor for String
+    // Number Constructor for Number
+    // Date Constructor for Date
+    // RegExp Constructor for RegExp
+    // Error Constructor for Error
+    // EvalError Constructor for EvalError
+    // RangeError Constructor for RangeError
+    // ReferenceError Constructor for ReferenceError
+    // SyntaxError Constructor for SyntaxError
+    // TypeError Constructor for TypeError
+    // URIError Constructor for URIError
+    eval("function sayHi() { console.log('hi'); }");
+    sayHi();
+
+    // TODO::1.#Cc0=>rgb(,,) #DE980F=>rgb(,,)
+    // 2.array()数组去重返回新数组；
+    // 3.使用Math.random()得到闭区间[0,1]均匀分布的随机函数，已知Math.random()是(0,1)开区间随机函数
+    function hexColorToRgb(hexColor) {
+        var reg3Bit = /^#([0-9a-f]){3}$/i;
+        var reg6Bit = /^#([0-9a-f]){6}$/i;
+        var hexColor6ToRgb = function(hexColor6Bit) {
+            var redNum = parseInt(hexColor6Bit.substring(0,2), 16);
+            var greenNum = parseInt(hexColor6Bit.substring(2,4), 16);
+            var blueNum = parseInt(hexColor6Bit.substring(4,6), 16);
+            return "rgb("+redNum+", "+greenNum+", "+blueNum+")";
+        };
+        var hexColor6Bit = "";
+        if(hexColor && typeof hexColor == "string"){
+            if(hexColor.length == 4){
+                if(reg3Bit.test(hexColor)){
+                    hexColor6Bit = hexColor.toLowerCase().substring(1).replace(/([0-9a-f])/g, "$1$1");
+                    return hexColor6ToRgb(hexColor6Bit);
+                }
+                return "";
+            }
+            else if(hexColor.length == 7){
+                if(reg6Bit.test(hexColor)){
+                    hexColor6Bit = hexColor.substring(1);
+                    return hexColor6ToRgb(hexColor6Bit);
+                }
+                return "";
+            }
+            return "";
+        }
+        return "";
+    }
+    console.log(hexColorToRgb("#Cc0"));
+    console.log(hexColorToRgb("#CccC00"));
+    console.log(hexColorToRgb("#ddFb76"));
+    console.log(hexColorToRgb("#uuu"));
+
+    function arrayToSet(arr) {
+        var numbers = {};
+        var strings = {};
+        var booleans = {};
+        var objects = {};
+        var functions = {};
+        var undefineds = {};
+        var set = [];
+        for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if(typeof item == "number"){
+                if(numbers[item] === undefined){
+                    set.push(item);
+                    numbers[item] = 1;
+                }
+            }
+            else if(typeof item == "string"){
+                if(strings[item] === undefined){
+                    set.push(item);
+                    strings[item] = 1;
+                }
+            }
+            else if(typeof item == "boolean"){
+                if(booleans[item] === undefined){
+                    set.push(item);
+                    booleans[item] = 1;
+                }
+            }
+            else if(typeof item == "object"){
+                if(objects[item] === undefined){
+                    set.push(item);
+                    objects[item] = 1;
+                }
+            }
+            else if(typeof item == "function"){
+                if(functions[item] === undefined){
+                    set.push(item);
+                    functions[item] = 1;
+                }
+            }
+            else if(typeof item == "undefined"){
+                if(undefineds[item] === undefined){
+                    set.push(item);
+                    undefineds[item] = 1;
+                }
+            }
+            else{
+                set.push(item);
+            }
+        }
+        return set;
+    }
+    var arr = [1, 2, 1, "1", "", 0, "false", false, "ABC", "A", arrayToSet, "3.5", true, "null", "false", "A ", "", 2, "true", undefined, "", function(){}, {name:"width", value:"200px"}, function(){return 1;}, {name:"width", value:"200px"}, {name: "width", value: "200px"}, {value:"200px", name:"width"}, null, "ABC", new Date("11/06/2014"), "3.5", 3.5, new Date("11/06/2014")];
+    console.log(arr);
+    console.log(arrayToSet(arr));
+
+    var b0={1:"1", "1":2, "2":"3", "":"", undefined:undefined, null:null};
+    var b1=b0[1];
+    var b2=b0["1"];
+    var b3=b0[2];
+    var b4=b0["2"];
+    var b5=b0[""];
+    var b6=b0[undefined];
+    var b7=b0["undefined"];
+    var b8=b0[null];
+    var b9=b0["null"];
+
+    console.log(b0); // Object{1=2,2="3",""="",undefined=undefined,null=null}
+    console.log(b1);
+    console.log(typeof b1);
+    console.log(b2);
+    console.log(typeof b2);
+    console.log(b3);
+    console.log(typeof b3);
+    console.log(b4);
+    console.log(typeof b4);
+    console.log(b5);
+    console.log(typeof b5);
+    console.log(b6);
+    console.log(typeof b6);
+    console.log(b7);
+    console.log(typeof b7);
+    console.log(b8);
+    console.log(typeof b8);
+    console.log(b9);
+    console.log(typeof b9);
+
+    var arr1=[1,2,"3","4",""," ",undefined,null,];
+    console.log(arr1);
+    console.log(arr1[1]);
+    console.log(arr1["1"]);
+    console.log(arr1[2]);
+    console.log(arr1["2"]);
+    console.log(arr1[""]);
+    console.log(arr1[" "]);
+    console.log(arr1["undefined"]);
+    console.log(arr1[null]);
+
+    //实现每隔5秒弹出"taobao"字样
+    (function test(){
+        this.name = 'taobao';
+        this.waitMes = function (){
+            alert(this.name);
+        };
+        // setInterval(function(){
+        // 	this.waitMes();
+        // },5000);
+    })();
+
+    /****************下面讲述"类"实现方式****************/
+    /**
+    * Constructor方式
+    */
+    function Person0(name, age, job){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function(){ //注意function本质是Object对象，此处逻辑上相当于new Function(....);
+            console.log(this.name);
+        };
+        this.sayAge = sayAge;
+    }
+    function sayAge(){
+        console.log(this.age);
+    }
+    //use as a constructor
+    var person0 = new Person0("Nicholas", 29, "Software Engineer");
+    person0.sayName(); //"Nicholas"
+    //call as a function
+    Person0("Greg", 27, "Doctor"); //adds to window
+    window.sayName(); //"Greg"
+    //call in the scope of another object
+    var o = new Object();
+    Person0.call(o, "Kristen", 25, "Nurse");
+    o.sayName(); //"Kristen"
+    var person3 = new Person0("Nicholas", 29, "Software Engineer");
+    var person4 = new Person0("Nicholas", 29, "Software Engineer");
+    console.log(person3.sayName == person4.sayName); //false
+    console.log(person3.sayAge == person4.sayAge); // true
+
+
+    /**
+    * Prototype方式
+    *
+    *           _____________________________________________________________
+    *          |                                                             |
+    *__________|___________                                                  |
+    *|        \|/         |               ______________________________     |
+    *|      Person1       |          _____|_\    Person1 Prototype     |     |
+    *|____________________|         |     |_/__________________________|     |
+    *|prototype|    ______|_定义fun__|     |  constructor |      _______|_____|
+    *|_________|__________|  时赋值  |     |______________|_____________|
+    *                               |     |   name       |    "Tom"    |
+    *                               |     |______________|_____________|
+    *______________________         |     |    age       |      30     |
+    *|      person5       |         |     |______________|_____________|
+    *|____________________|         |     |    job       |  "Teacher"  |
+    *|__proto__|    ______|__实例化__|     |______________|_____________|
+    *|_________|__________|  时赋值        |  sayName     |  function   |
+    *                                     |______________|_____________|
+    *
+    *
+    * 当一个对象(person5)的property(sayName)被访问时，会先从对象实例(person5)本身的properties搜索；
+    *     若搜索到，立即停止；
+    *     若未搜索到，则在构造器(Person1)的prototype中搜索，若搜索到，立即停止；
+    * prototype.isPrototypeOf(instance) : instance.__proto__ points to the prototype return true
+    * instance.hasOwnProperty("prop") : prop is accessible in instance self return true
+    * "prop" in instance / for var prop in instance : prop is accessible return true
+    */
+    function Person1(){
+
+    }
+    Person1.prototype.name = "Tom";
+    Person1.prototype.age = 30;
+    Person1.prototype.job = "Teacher";
+    Person1.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    var person5 = new Person1();
+    console.log(Person1);
+    console.log(Person1.prototype);
+    console.log(Person1.prototype.constructor);
+    console.log(person5.__proto__);
+    console.log(Person1.prototype.isPrototypeOf(person5));
+    var person6 = new Person1();
+    var person7 = new Person1();
+    console.log(person6.hasOwnProperty("name")); //false
+    person7.name = "Jim";
+    console.log(person7.hasOwnProperty("name")); //true
+    delete person7.name;
+    console.log(person7.hasOwnProperty("name")); //false
+    var person8 = new Person1();
+    var person9 = new Person1();
+    console.log(person8.hasOwnProperty("name")); //false
+    console.log("name" in person8); // true
+    for (var prop8 in person8) {
+        console.log(prop8+":"+person8[prop8]);
+    }
+    person9.name = "Kate";
+    person9.sayName = function(){
+        console.log("Kate's "+this.name);
+    };
+    console.log(person9.hasOwnProperty("name")); //true
+    console.log("name" in person9); //true
+    for(var prop9 in person9){
+        console.log(prop9+":"+person9[prop9]);
+    }
+    var obj1 = {
+        toString : function(){
+            return "My Object";
+        }
+    };
+    for(var prop in obj1){
+        if(prop == "toString"){ //This will not work on ie
+            console.log(prop+" method is found.");
+        }
+    }
+
+    /**
+    * 这种写法Person2.prototype被Object literal写法完全复写，因此，Person2.prototype.constructor属性也被Object覆盖
+    */
+    function Person2(){
+
+    }
+    Person2.prototype = {
+        // constructor: Person2, //要修复上述问题，需要去掉该行注释，重新指定constructor
+        name: "Tom",
+        age: 30,
+        job: "Teacher",
+        sayName: function(){
+            console.log(this.name);
+        }
+    };
+    var person10 = new Person2();
+    console.log(Person2.prototype.constructor); //Object()
+    console.log(person10.__proto__); //Object({name:"Tom",...})
+    console.log(person10 instanceof Object); //true
+    console.log(person10 instanceof Person2); //true
+    console.log(Person2.prototype.isPrototypeOf(person10)); //true
+    console.log(Object.prototype.isPrototypeOf(person10)); //true
+    console.log(person10.constructor == Object); //true
+    console.log(person10.constructor == Person2); //false
+
+    /**
+    * person11在实例化时__proto__指针已经指向Person3.prototype，访问对象的任何属性都遵循先instance本身-再prototype
+    */
+    function Person3(){
+
+    }
+    Person3.prototype = {
+        constructor: Person3,
+        name: "Tom",
+        age: 30,
+        job: "Teacher",
+        sayName: function(){
+            console.log(this.name);
+        }
+    };
+    var person11 = new Person3();
+    Person3.prototype.sayHi = function() {
+        console.log("Say Hi!");
+    };
+    person11.sayHi(); //Say Hi! it works!
+
+    /**
+    *-----------------------------prototype复写前---------------------------------
+    *           _____________________________________________________________
+    *          |                                                             |
+    *__________|___________                                                  |
+    *|        \|/         |               ______________________________     |
+    *|      Person4       |          _____|_\    Person4 Prototype     |     |
+    *|____________________|         |     |_/__________________________|     |
+    *|prototype|    ______|_定义fun__|     |  constructor |      _______|_____|
+    *|_________|__________|  时赋值  |     |______________|_____________|
+    *                               |     |   name       |    "Tom"    |
+    *                               |     |______________|_____________|
+    *______________________         |     |    job       |  "Teacher"  |
+    *|     person12       |         |     |______________|_____________|
+    *|____________________|         |     |  sayName     |  function   |
+    *|__proto__|    ______|__实例化__|     |______________|_____________|
+    *|_________|__________|  时赋值
+    *
+    *
+    *-----------------------------prototype复写后---------------------------------
+    *
+    *           _____________________________________________________________
+    *          |                                                             |
+    *__________|___________                                                  |
+    *|        \|/         |               ______________________________     |
+    *|      Person4       |          _____|_\    Person4 Prototype     |     |
+    *|____________________|         |     |_/__________________________|     |
+    *|prototype|    ______|_定义fun__|__   |  constructor |      _______|_____|
+    *|_________|__________|  时赋值  |  |  |______________|_____________|     |
+    *                               |  |  |   name       |    "Tom"    |     |
+    *                               |  |  |______________|_____________|     |
+    *______________________         |  |  |    job       |  "Teacher"  |     |
+    *|     person12       |         |  |  |______________|_____________|     |
+    *|____________________|         |  |  |  sayName     |  function   |     |
+    *|__proto__|    ______|__实例化__|  |  |______________|_____________|     |
+    *|_________|__________|  时赋值     |                                     |
+    *                                  |                                     |
+    *                                  |                                     |
+    *                                  |                                     |
+    *                                  |  ______________________________     |
+    *                                  |__|_\  New Person4 Prototype   |     |
+    *                                     |_/__________________________|     |
+    *                                     |  constructor |      _______|_____|
+    *                                     |______________|_____________|
+    *                                     |   name       |   "Kate"    |
+    *                                     |______________|_____________|
+    *                                     |    age       |     30      |
+    *                                     |______________|_____________|
+    *                                     |  sayName     |  function   |
+    *                                     |______________|_____________|
+    *                                     |   sayHi      |  function   |
+    *                                     |______________|_____________|
+    *
+    */
+    function Person4(){
+
+    }
+    Person4.prototype = {
+        constructor: Person4,
+        name: "Tom",
+        job: "Teacher",
+        sayName: function(){
+            console.log(this.name);
+        }
+    };
+    var person12 = new Person4();
+    Person4.prototype = {
+        constructor: Person4,
+        name: "Kate",
+        age: 30,
+        sayName: function(){
+            console.log("Kate's "+this.name);
+        },
+        sayHi: function(){
+            console.log("Say Hi!");
+        }
+    };
+    console.log(person12.name); //Tom
+    console.log(person12.age); // undefined
+    console.log(person12.job); // Teacher
+    person12.sayName(); // Tom
+    console.log(person12.sayHi); //undefined
+    // person12.sayHi(); //TypeError not a function!
+
+    /**
+    * 由于从头至尾使用prototype进行赋值，都是相同的指针，只是重写了prototype属性的值，不存在prototype本身被复写的情况
+    */
+    function Person5(){
+
+    }
+    Person5.prototype.name = "Tom";
+    Person5.prototype.job = "Teacher";
+    Person5.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    var person13 = new Person5();
+    Person5.prototype.name = "Kate";
+    Person5.prototype.age = 30;
+    Person5.prototype.sayName = function(){
+        console.log("Kate's "+this.name);
+    };
+    Person5.prototype.sayHi = function(){
+        console.log("Say Hi!");
+    };
+    console.log(person13.name);
+    console.log(person13.age);
+    console.log(person13.job);
+    person13.sayName();
+    console.log(person13.sayHi);
+    person13.sayHi();
+
+    /**
+    * Constructor/Prototype方式（应用最广泛）
+    * 规则：
+    *     1.constructor里定义instance properties（实例属性，每个实例拥有一个副本，非共享属性）；
+    *     2.prototype里定义shared properties、methods（共享属性、方法）
+    * 引入原因：Prototype方式对于引用类型（如Array）的属性修改是prototype共享的，即全局性质，大多数情况某种程度不符合真实需要
+    */
+    function Person6(name, age, job){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.friends = ["Kate","Jim"];
+    }
+    Person6.prototype = {
+        constructor : Person6,
+        sayName : function(){
+            console.log(this.name);
+        },
+        addFriend : function(obj){
+            if(obj && typeof obj == "object" && obj.name)
+                this.friends.push(obj.name);
+            else
+                this.friends.push(obj);
+        }
+    };
+    var person14 = new Person6("Tom", 30, "Teacher");
+    var person15 = new Person6("Nancy", 16, "Student");
+    console.log(person14.friends === person15.friends); //false
+    console.log(person14.sayName === person15.sayName); //true
+    person14.addFriend(person15);
+    console.log(person14.friends);
+
+    /**
+    * Dynamic Prototype方式
+    * 可以保证methods的定义在第一次new实例化对象时就初始化，且无需第二次修改
+    */
+    function Person7(name, age , job){
+        this.name = name;
+        this.age = age;
+        this.job = job;
+
+        if(typeof this.sayName != "function"){
+            Person7.prototype.sayName = function(){
+                console.log(this.name);
+            }
+        }
+    }
+
+    /**
+    * Parasitic Constructor方式
+    * 典型用法：对于String、Array、Date这类Javascript内置对象，我们无法获得其constructor，但需要根据其扩充某些方法或属性
+    * 注意事项：此方式返回的对象与constructor和prototype并无联系，instanceof等函数会失效，因此，建议谨慎使用
+    */
+    function Person8(name, age, job){
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.job = job;
+        o.sayName = function(){
+            console.log(this.name);
+        };
+        return o;
+    }
+
+    function SpecialArray(){
+        var values = new Array();
+        values.push.apply(values, arguments);
+        values.toPipedString = function(){
+            return this.join("|");
+        };
+        return values;
+    }
+
+    /**
+    * Durable Constructor方式（无public属性-方法访问方式，禁this访问，禁new操作）
+    * 典型用法：安全系数要求较高的环境
+    * 注意事项：同Parasitic Constructor方式注意事项
+    */
+    function Person9(name, age, job){
+        var o = new Object();
+        o.getName = function(){
+            return name;
+        };
+        return o;
+    }
+    var person16 = Person9("Tom", 30, "Teacher");
+    console.log(person16.getName());
+
+    /****************下面讲述继承实现方式****************/
+    /**
+    * Prototype Chaining
+    * 注意：访问instance.constructor时，先搜索instance，未果；再搜索SubType.prototype，未果；由于SubType.prototype是SuperType的实例，再搜索SuperType.prototype，找到停止；
+    * 因此，instance.constructor 指向 SuperType
+    * 缺点：
+    *     1.在SuperType包含引用类型的属性时，子类实例对该属性的修改会是全局性质（因为子类prototype是一个SuperType对象）
+    *     2.不支持constructor参数传递
+    */
+    function SuperType(){
+        this.property = true;
+    }
+    SuperType.prototype.getSuperValue = function(){
+        return this.property;
+    };
+    function SubType(){
+        this.subProperty = false;
+    }
+    SubType.prototype = new SuperType();
+    SubType.prototype.getSubValue = function(){
+        return this.subProperty;
+    };
+    var instance = new SubType();
+    console.log(instance);
+    console.log(instance instanceof Object); //true
+    console.log(instance instanceof SuperType); //true
+    console.log(instance instanceof SubType); //true
+    console.log(Object.prototype.isPrototypeOf(instance)); //true
+    console.log(SuperType.prototype.isPrototypeOf(instance)); //true
+    console.log(SubType.prototype.isPrototypeOf(instance)); //true
+
+    /**
+    * Prototype Chaining在使用Object Literal方式时会遭到破坏
+    */
+    function SuperType1(){
+        this.property = true;
+    }
+    SuperType1.prototype.getSuperValue = function(){
+        return this.property;
+    };
+    function SubType1(){
+        this.subProperty = false;
+    }
+    SubType.prototype = new SuperType();
+    SubType.prototype = {
+        getSubValue : function(){
+            return this.subProperty;
+        }
+    };
+    var instance1 = new SubType1();
+    console.log(instance1.getSuperValue); //undefined
+    // console.log(instance1.getSuperValue()); //TypeError
+
+    /**
+    * Constructor Stealing方式（解决Prototype Chaining方式的问题）
+    * 缺点：methods须在constructor内部，无法共享
+    */
+    function SuperType2(name){
+        this.name = name;
+    }
+
+    function SubType2(){
+        SuperType2.call(this, "Tom");
+
+        this.age = 30;
+    }
+
+    var instance2 = new SubType2();
+    console.log(instance2.name);
+    console.log(instance2.age);
+
+    /**
+    * Combination Inheritance方式(使用最广泛)
+    */
+    function SuperType3(name){
+        this.name = name;
+        this.colors = ["red", "blue", "green"];
+    }
+    SuperType3.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    function SubType3(name, age){
+        SuperType3.call(this, name);
+
+        this.age = age;
+    }
+    SubType3.prototype = new SuperType3();
+    // delete SuperType3.prototype.constructor; //此行为证明下面SubType3.prototype.constructor的访问实质是访问SuperType3.prototype.constructor
+    SubType3.prototype.sayAge = function(){
+        console.log(this.age);
+    };
+    // console.log(SubType3.prototype.constructor); //若上面delete语句注释去掉，则undefined
+    console.log(SuperType3.prototype.constructor);
+    console.log(SubType3.prototype.constructor);
+    var instance3 = new SubType3("Tom", 30);
+    instance3.colors.push("black");
+    console.log(instance3.colors); //["red","blue","green","black"]
+    instance3.sayName();
+    instance3.sayAge();
+
+    /**
+    * Prototypal Inheritance、Prasitic Inheritance从略
+    */
+
+    /**
+    * Prasitic Combination Inheritance方式(弥补Combination Inheritance方式2次父类的constructor操作)
+    * 注：2次发生在子类constructor内部、子类prototype创建时，这样会导致子类实例化某对象时，子类instance本身、子类的prototype中都会包含父类既有的父类instance属性，产生冗余
+    */
+    function inheritPrototype(subType, superType){
+        var prototype = Object(superType.prototype); //create object
+        prototype.constructor = subType; //augment object
+        subType.prototype = prototype; //assign object
+    }
+
+    function SuperType4(name){
+        this.name = name;
+        this.colors = ["red", "blue", "green"];
+    }
+    SuperType4.prototype.sayName = function(){
+        console.log(this.name);
+    };
+    function SubType4(name, age){
+        SuperType4.call(this, name);
+
+        this.age = age;
+    }
+    inheritPrototype(SubType4, SuperType4);
+    SubType4.prototype.sayAge = function(){
+        console.log(this.age);
+    };
+    var instance4 = new SubType4("Tom", 30);
+    console.log(SuperType4.prototype.constructor); //SubType4(name, age)
+    console.log(SubType4.prototype.constructor); //SubType4(name, age)
+    console.log(SubType4.prototype.name); //undefined
+    console.log(SubType4.prototype.colors); //undefined
+    instance4.sayName();
+    instance4.sayAge();
+
+    // Anonymous Function
+    function factorial (num) {
+        if (num <= 1)
+            return 1;
+        else
+            return num * factorial(num-1);
+    }
+    var anotherFactorial = factorial;
+    factorial = null;
+    // console.log(anotherFactorial(4)); //TypeError: factorial is not a function!
+
+    function factorial1 (num) {
+        if (num <= 1)
+            return 1;
+        else
+            return num * arguments.callee(num-1);
+    }
+    var anotherFactorial1 = factorial1;
+    factorial1 = null;
+    console.log(anotherFactorial1(4));
+
+    function createComparisonFunction1(propertyName) {
+        return function(object1, object2){
+            var value1 = object1[propertyName];
+            var value2 = object2[propertyName];
+            if (value1 < value2){
+                return -1;
+            } else if (value1 > value2){
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+    }
+
+    //create function
+    var compareNames = createComparisonFunction1("name");
+    //call function
+    var result4 = compareNames({ name: "Nicholas" }, { name: "Greg"});
+    //dereference function - memory can now be reclaimed
+    compareNames = null;
+    </script>
+</head>
+<body>
+</body>
+</html>

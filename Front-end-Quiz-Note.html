@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Front-end Quiz Note</title>
+    <style>
+    #i-am-useless {
+        background-image: url('mypic.jpg');
+    }
+    
+    #test2 {
+        background-image: url('mypic.jpg');
+        display: none;
+    }
+    
+    #test1 {
+        display: none;
+    }
+    
+    #test2 {
+        background-image: url('mypic.jpg');
+        visibility: hidden;
+    }
+
+    * {
+    	padding: 1px 3px 2px;
+    }
+    </style>
+    <link href="main1.css" rel="stylesheet">
+    <link href="main2.css" rel="stylesheet">
+    <script>
+    alert('Hello World');
+    </script>
+</head>
+
+<body>
+    <div id="test1">
+        <span id="test2"></span>
+    </div>
+
+    <img src="mypic.jpg" style="visibility: hidden" alt="My picture">
+    
+    <div style="display: none;">
+        <img src="mypic.jpg" alt="My photo">
+    </div>
+    
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    <link href="main2.css" rel="stylesheet">
+    
+    <script>
+    var a = [0, 1, 2, 3, '0', '1', '2', "1", "2", 2.00, null, undefined,  "null", {name: "Tom", age: 20}, {name: "Tom", age: 20}];
+    var b = [0, 1, 2, 3, '0', '1', '2', null, undefined, "null", {name: "Tom", age: 20}];
+    
+
+    var a = "#0f0";
+    var b = "rgb(0, 255, 0)";
+    var b = "#00ffdd";
+    var b = "rgb(0, 255, 221)";
+
+
+    function createComparisonFunction(propertyName) {
+        return function(object1, object2) {
+            var value1 = object1[propertyName];
+            var value2 = object2[propertyName];
+            if (value1 < value2) {
+                return -1;
+            } else if (value1 > value2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+    }
+    var compareNames = createComparisonFunction("name");
+    var result = compareNames({ name: "Nicholas" }, { name: "Greg"});
+
+
+    var a = "1" + 2 + "3" + 4;
+    
+
+    var a = 4 + 3 + 2 + "1";
+
+    var foo = 1;
+
+    function bar() {
+        foo = 10;
+        return;
+
+        function foo() {}
+    }
+    bar();
+    alert(foo);
+
+
+    function bar() {
+        return foo;
+        foo = 10;
+
+        function foo() {}
+        var foo = 11;
+    }
+    alert(typeof bar());
+
+
+    var x = 3;
+
+    var foo = {
+        x: 2,
+        baz: {
+            x: 1,
+            bar: function() {
+                return this.x;
+            }
+        }
+    }
+
+    var go = foo.baz.bar;
+
+    alert(go());
+    alert(foo.baz.bar());
+
+    var x = 4,
+        obj = {
+            x: 3,
+            bar: function() {
+                var x = 2;
+                setTimeout(function() {
+                    var x = 1;
+                    alert(this.x);
+                }, 1000);
+            }
+        };
+    obj.bar();
+
+
+    x = 1;
+
+    function bar() {
+        this.x = 2;
+        return x;
+    }
+    var foo = new bar();
+    alert(foo.x);
+
+
+    var foo = function bar() {};
+    alert(typeof bar);
+
+
+    var arr = [];
+    arr[0] = 'a';
+    arr[1] = 'b';
+    arr.foo = 'c';
+    alert(arr.length);
+
+
+    function foo() {}
+    delete foo.length;
+    alert(typeof foo.length);
+
+
+    var b = 1;
+    function add(a , b) {
+        a = 10;
+        console.log("a:"+_____);
+        console.log("arguments[0]:"+ _____);
+
+        arguments[0] = 11;
+        console.log("a:"+ _____);
+        console.log("arguments[0]:"+ _____);
+
+        console.log("a+b:"+ _____);
+
+        b = 20;
+        console.log("b:"+ _____);
+        console.log("arguments[1]:"+ _____);
+
+        arguments[1] = 21;
+        console.log("b:"+ _____);
+        console.log("arguments[1]:"+ _____);
+
+        console.log("a+b:"+ _____);
+    }
+    add(1,b);
+    console.log("b:"+ _____);
+
+
+    function arrayToSet(arr) {
+        var numbers = {};
+        var strings = {};
+        var booleans = {};
+        var objects = {};
+        var functions = {};
+        var undefineds = {};
+        var set = [];
+        for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if(typeof item == "number"){
+                if(numbers[item] === undefined){
+                    set.push(item);
+                    numbers[item] = 1;
+                }
+            }
+            else if(typeof item == "string"){
+                if(strings[item] === undefined){
+                    set.push(item);
+                    strings[item] = 1;
+                }
+            }
+            else if(typeof item == "boolean"){
+                if(booleans[item] === undefined){
+                    set.push(item);
+                    booleans[item] = 1;
+                }
+            }
+            else if(typeof item == "object"){
+                if(objects[item] === undefined){
+                    set.push(item);
+                    objects[item] = 1;
+                }
+            }
+            else if(typeof item == "function"){
+                if(functions[item] === undefined){
+                    set.push(item);
+                    functions[item] = 1;
+                }
+            }
+            else if(typeof item == "undefined"){
+                if(undefineds[item] === undefined){
+                    set.push(item);
+                    undefineds[item] = 1;
+                }
+            }
+            else{
+                set.push(item);
+            }
+        }
+        return set;
+    }
+    var arr = [1, 2, 1, "1", "", 0, "false", false, "ABC", "A", arrayToSet, "3.5", true, "null", "false", "A ", "", 2, "true", undefined, "", function(){}, {name:"width", value:"200px"}, function(){return 1;}, {name:"width", value:"200px"}, {name: "width", value: "200px"}, {value:"200px", name:"width"}, null, "ABC", new Date("11/06/2014"), "3.5", 3.5, new Date("11/06/2014")];
+    console.log(arr);
+    console.log(arrayToSet(arr));
+
+
+    function hexColorToRgb(hexColor) {
+        var reg3Bit = /^#([0-9a-f]){3}$/i;
+        var reg6Bit = /^#([0-9a-f]){6}$/i;
+        var hexColor6ToRgb = function(hexColor6Bit) {
+            var redNum = parseInt(hexColor6Bit.substring(0,2), 16);
+            var greenNum = parseInt(hexColor6Bit.substring(2,4), 16);
+            var blueNum = parseInt(hexColor6Bit.substring(4,6), 16);
+            return "rgb("+redNum+", "+greenNum+", "+blueNum+")";
+        };
+        var hexColor6Bit = "";
+        if(hexColor && typeof hexColor == "string"){
+            if(hexColor.length == 4){
+                if(reg3Bit.test(hexColor)){
+                    hexColor6Bit = hexColor.toLowerCase().substring(1).replace(/([0-9a-f])/g, "$1$1");
+                    return hexColor6ToRgb(hexColor6Bit);
+                }
+                return "";
+            }
+            else if(hexColor.length == 7){
+                if(reg6Bit.test(hexColor)){
+                    hexColor6Bit = hexColor.substring(1);
+                    return hexColor6ToRgb(hexColor6Bit);
+                }
+                return "";
+            }
+            return "";
+        }
+        return "";
+    }
+    console.log(hexColorToRgb("#Cc0"));
+    console.log(hexColorToRgb("#CccC00"));
+    console.log(hexColorToRgb("#ddFb76"));
+    console.log(hexColorToRgb("#uuu"));
+
+
+    //dereference function - memory can now be reclaimed
+    compareNames = null;
+
+
+    var b = 1;
+    function add(a , b) {
+        a = 10;
+        console.log("a:"+___ 10___);
+        console.log("arguments[0]:"+ ___10___);
+
+        arguments[0] = 11;
+        console.log("a:"+ ___11___);
+        console.log("arguments[0]:"+ ___11___);
+
+        console.log("a+b:"+ ___12___);
+
+        b = 20;
+        console.log("b:"+ ___20___);
+        console.log("arguments[1]:"+ ___20___);
+
+        arguments[1] = 21;
+        console.log("b:"+ ___21___);
+        console.log("arguments[1]:"+ ___21___);
+
+        console.log("a+b:"+ ___32___);
+    }
+    add(1,b);
+    console.log("b:"+ ___1___);
+
+    </script>
+</body>
+
+</html>

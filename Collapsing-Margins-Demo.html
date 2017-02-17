@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collapsing Margins Demo</title>
+    <style>
+        /* PRESENTATIONAL STYLES */
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Helvetica, Arial;
+            padding: 25px;
+            text-align: center;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        div {
+            display: block;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        /* Both positive margins */
+        .module {
+            height: 150px;
+        }
+
+        .module__top_1 {
+            margin-bottom: 25px;
+            background-color: #ff6b6b;
+        }
+
+        .module__bottom_1 {
+            margin-top: 50px;
+            background-color: #4e97cd;
+        }
+
+        /* One positive margin, one negative margin */
+        .module__top_2 {
+            margin-bottom: -25px;
+            background-color: #ff6b6b;
+        }
+
+        .module__bottom_2 {
+            margin-top: 50px;
+            background-color: #4e97cd;
+        }
+
+        /* Both negative margins */
+        .module__top_3 {
+            margin-bottom: -25px;
+            background-color: #ff6b6b;
+        }
+
+        .module__bottom_3 {
+            margin-top: -50px;
+            background-color: #4e97cd;
+        }
+
+        /* DEMO STYLES */
+        /* Parent */
+        div.red, div.red div {
+            margin: 15px 0;
+        }
+
+        /* Add padding to the parent */
+        .padding {
+            padding: 1px 0;
+        }
+
+        /* Here come the children */
+        .red {
+            background-color: #ff6b6b;
+        }
+
+        .orange {
+            background-color: #ff9e2c;
+        }
+
+        .yellow {
+            background-color: #eeee78;
+        }
+
+        .green {
+            background-color: #4ecd9d;
+        }
+
+        .blue {
+            background-color: #4e97cd;
+        }
+
+        .purple {
+            background-color: #6c4ecd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Both Positive</h1>
+
+    <div class="module module__top_1"></div>
+    <div class="module module__bottom_1"></div>
+
+    <hr/>
+    <h1>Positive + Negative</h1>
+
+    <div class="module module__top_2"></div>
+    <div class="module module__bottom_2"></div>
+
+    <hr/>
+    <h1>Both Negative</h1>
+
+    <div class="module module__top_3"></div>
+    <div class="module module__bottom_3"></div>
+
+    <hr/>
+    <h1>Collapsing Child Margins</h1>
+
+    <div class="red">
+        <div class="orange">
+            <div class="yellow">
+                <div class="green">
+                    <div class="blue">
+                        <div class="purple">Collapsed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="padding red">
+        <div class="padding orange">
+            <div class="padding yellow">
+                <div class="padding green">
+                    <div class="padding blue">
+                        <div class="padding purple">Not Collapsed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <h1>Collapsing Margins W3C Specification</h1>
+
+    <div>
+        <a href="https://www.w3.org/TR/CSS21/box.html#collapsing-margins" target="_blank">https://www.w3.org/TR/CSS21/box.html#collapsing-margins</a>
+    </div>
+</body>
+</html>

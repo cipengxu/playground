@@ -1,0 +1,1928 @@
+--case senstive with non-duplicate values ugly
+=SUMPRODUCT(--(MMULT(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1)),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))/ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))<>1))+SUMPRODUCT(--(MMULT(TRANSPOSE(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1))),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))/ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1)))>1))
+
+--case senstive with non-duplicate values
+=SUMPRODUCT(
+    --(
+        MMULT(
+            --EXACT(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                )
+            )
+            /
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                )
+            )
+        )
+        <>
+        1
+    )
+)
++
+SUMPRODUCT(
+    --(
+        MMULT(
+            TRANSPOSE(
+                --EXACT(
+                    MID(
+                        ","&B15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    ),
+                    MID(
+                        ","&A15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    )
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                )
+            )
+            /
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                )
+            )
+        )
+        >
+        1
+    )
+)
+
+----------If Valid/Invalid----------
+=IF(SUMPRODUCT(--(MMULT(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1)),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))/ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))<>1))+SUMPRODUCT(--(MMULT(TRANSPOSE(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1))),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))/ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1)))>1))>0,"Invalid","Valid")
+
+
+
+--case senstive ugly
+=SUMPRODUCT(--(MMULT(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1)),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))/ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))<>1))
+
+--case senstive
+=SUMPRODUCT(
+    --(
+        MMULT(
+            --EXACT(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                )
+            )
+            /
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                )
+            )
+        )
+        <>
+        1
+    )
+)
+
+----------IF Valid/Invalid---------
+=IF(SUMPRODUCT(--(MMULT(--EXACT(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2)))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),TRANSPOSE(ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))))-1)),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))/ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1)))<>1))>0,"Invalid","Valid")
+
+----------MMULT example----------
+=SUMPRODUCT(
+    --(
+        MMULT(
+            {1,0,0;0,1,1;0,0,0;0,1,0},
+            ROW($1:$3)/ROW($1:$3)
+        )
+        >
+        1
+    )
+)
+
+----------Start Sample Test----------
+=SUMPRODUCT(
+    --(
+        MMULT(
+            --EXACT(
+                {"A";"C";"D ";"AB";"AAAA";"a";"A"},
+                {"A","B","C","D","AA","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","DD","AABCCDD","AAAA"}
+            ),
+            {1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1}
+        )
+        <>
+        1
+    )
+)
++
+SUMPRODUCT(
+    --(
+        MMULT(
+            TRANSPOSE(
+                --EXACT(
+                    {"A";"C";"D ";"AB";"AAAA";"a";"A"},
+                    {"A","B","C","D","AA","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","DD","AABCCDD","AAAA"}
+                )
+            ),
+            {1;1;1;1;1;1;1}
+        )
+        >
+        1
+    )
+)
+
+||
+\/
+
+=SUMPRODUCT(
+    --(
+        MMULT(
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1}
+        )
+        <>
+        1
+    )
+)
++
+SUMPRODUCT(
+    --(
+        MMULT(
+            {1,0,0,0,0,0,1;0,0,0,0,0,0,0;0,1,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,1,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,0,0,0;0,0,0,0,1,0,0},
+            {1;1;1;1;1;1;1}
+        )
+        >
+        1
+    )
+)
+
+||
+\/
+
+=SUMPRODUCT(
+    --(
+        {1;1;0;1;1;0;1}
+        <>
+        1
+    )
+)
++
+SUMPRODUCT(
+    --(
+        {2;0;1;0;0;1;0;0;0;0;0;0;0;0;0;1}
+        >
+        1
+    )
+)
+
+||
+\/
+
+=SUMPRODUCT(
+    {0;0;1;0;0;1;0}
+)
++
+SUMPRODUCT(
+    {1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0}
+)
+
+||
+\/
+
+=2
++
+1
+
+
+=SUMPRODUCT(
+    --(
+        MMULT(
+            --EXACT(
+                {"A";"C";"D ";"AB";"AAAA";"a";"A"},
+                {"A","B","C","D","AA","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","DD","AABCCDD","AAAA"}
+            ),
+            {1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1}
+        )
+        <>
+        1
+    )
+)
+
+{
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
+    0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
+    0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1;
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+}
+
+{
+    1,0,0,0,0,0,1;
+    0,0,0,0,0,0,0;
+    0,1,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,1,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,0,0,0;
+    0,0,0,0,1,0,0
+}
+
+------------End Sample Test----------
+
+
+
+
+--case insenstive ugly
+ISNA(SUM(MATCH(MID(","&B15&",",FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&B15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1))))-1),MID(","&A15&",",FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))))+1,FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),ROW(INDIRECT("2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2))))-FIND(CHAR(9),SUBSTITUTE(","&A15&",",",",CHAR(9),ROW(INDIRECT("1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1))))-1),0)))
+
+
+--case insenstive
+=IF(
+    ISNA(
+        SUM(
+            MATCH(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                0
+            )
+        )
+    ),
+    "Invalid",
+    "Valid"
+)
+
+
+
+
+=SUMPRODUCT(
+    --(
+        SUBTOTAL(
+            9,
+            INDEX(
+                --EXACT(
+                    MID(
+                        ","&B15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    ),
+                    MID(
+                        ","&A15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    )
+                ),
+                ROW(
+                    INDIRECT(
+                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                    )
+                )
+                -
+                1
+            )
+        )
+        <>
+        1
+    ),
+    SUBTOTAL(
+        9,
+        INDEX(
+            --EXACT(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                )
+            )
+            -
+            1
+        )
+    )
+)
+
+
+
+
+
+    SUBTOTAL(
+        9,
+        INDEX(
+            --EXACT(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                )
+            )
+            -
+            1
+        )
+    )
+
+
+
+
+    SUBTOTAL(
+        9,
+        OFFSET(
+            --EXACT(
+                MID(
+                    ","&B15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&B15&",",
+                            ",",
+                            CHAR(9),
+                            ROW(
+                                INDIRECT(
+                                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                ),
+                MID(
+                    ","&A15&",",
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    +
+                    1,
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    FIND(
+                        CHAR(9),
+                        SUBSTITUTE(
+                            ","&A15&",",
+                            ",",
+                            CHAR(9),
+                            TRANSPOSE(
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    -
+                    1
+                )
+            ),
+            ROW(
+                INDIRECT(
+                    "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                )
+            )
+            -
+            1,
+            0,
+            1
+        )
+    )
+
+
+
+=SUM(IF(SUBTOTAL(9, OFFSET())<>1))
+
+
+=SUM(
+    COUNTIF(
+        --EXACT(
+                 {"A";"C";"D ";"AB";"AAA"},
+                 {"A","B","C","D","AA","A","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","D","DD","AABCCDD","AAAA"}
+         ),
+         SUM(
+             INDEX(
+                 --EXACT(
+                 {"A";"C";"D ";"AB";"AAA"},
+                 {"A","B","C","D","AA","A","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","D","DD","AABCCDD","AAAA"}
+                 ),
+                 {1,2,3,4,5}
+             )
+         )
+        <>1
+    )
+)
+
+
+=IF(
+    ISNA(
+        SUM(
+            MATCH(
+                1,
+                --EXACT(
+                    MID(
+                        ","&B15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    ),
+                    MID(
+                        ","&A15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    )
+                ),
+                0
+            )
+        )
+    ),
+    "Invalid",
+    "Valid"
+)
+
+
+=IF(
+    ISNA(
+        SUM(
+            MATCH(
+                1,
+                --EXACT(
+                    MID(
+                        ","&B15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    ),
+                    MID(
+                        ","&A15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    )
+                ),
+                0
+            )
+        )
+    ),
+    "Invalid",
+    "Valid"
+)
+
+
+
+
+
+
+=IF(
+    ISNA(
+        SUM(
+            MATCH(
+                1,
+                --EXACT(
+                    MID(
+                        ","&B15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&B15&",",
+                                ",",
+                                CHAR(9),
+                                TRANSPOSE(
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    ),
+                    MID(
+                        ","&A15&",",
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        +
+                        1,
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        FIND(
+                            CHAR(9),
+                            SUBSTITUTE(
+                                ","&A15&",",
+                                ",",
+                                CHAR(9),
+                                ROW(
+                                    INDIRECT(
+                                        "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                    )
+                                )
+                            )
+                        )
+                        -
+                        1
+                    )
+                ),
+                0
+            )
+        )
+    ),
+    "Invalid",
+    "Valid"
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+= IF(
+        (
+            ISNA(
+                SUM(
+                    MATCH(
+                        MID(
+                            ","&B15&",",
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            +
+                            1,
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            1
+                        ),
+                        MID(
+                            ","&A15&",",
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            +
+                            1,
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            1
+                        ),
+                        0
+                    )
+                )
+            ) +
+            ISNA(
+                SUM(
+                    MATCH(
+                        MID(
+                            ","&A15&",",
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            +
+                            1,
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&A15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(A15)-LEN(SUBSTITUTE(A15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            1
+                        ),
+                        MID(
+                            ","&B15&",",
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            +
+                            1,
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            FIND(
+                                CHAR(9),
+                                SUBSTITUTE(
+                                    ","&B15&",",
+                                    ",",
+                                    CHAR(9),
+                                    ROW(
+                                        INDIRECT(
+                                            "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                                        )
+                                    )
+                                )
+                            )
+                            -
+                            1
+                        ),
+                        0
+                    )
+                )
+            )
+        ) > 1,
+        "No Match",
+        "Match"
+    )
+
+= IF(
+        (
+            ISNA(
+                SUM(
+                    MATCH(
+                        MID(
+                            B1,
+                            ROW(
+                                INDIRECT(
+                                    "1:" & LEN(B1)
+                                )
+                            ),
+                            1
+                        ),
+                        MID(
+                            A1,
+                            ROW(
+                                INDIRECT(
+                                    "1:" & LEN(A1)
+                                )
+                            ),
+                            1
+                        ),
+                        0
+                    )
+                )
+            ) +
+            ISNA(
+                SUM(
+                    MATCH(
+                        MID(
+                            A1,
+                            ROW(
+                                INDIRECT(
+                                    "1:" & LEN(A1)
+                                )
+                            ),
+                            1
+                        ),
+                        MID(
+                            B1,
+                            ROW(
+                                INDIRECT(
+                                    "1:" & LEN(B1)
+                                )
+                            ),
+                            1
+                        ),
+                        0
+                    )
+                )
+            )
+        ) > 1,
+        "No Match",
+        "Match"
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------temp----------
+                MATCH(
+                     {"A";"C";"D ";"AB";"AAA";"D ";"AB";"AAA";"A";"DDD";"E"},
+                     {"A";"B";"C";"D";"AA";"A";"AB";"AC";"AD";"ABC";"ABD";"ABCD";"BBB";"CC";"D";"DD";"AABCCDD";"AAAA"},
+                     0
+                 )
+
+MID(
+    ","&B15&",",
+    FIND(
+        CHAR(9),
+        SUBSTITUTE(
+            ","&B15&",",
+            ",",
+            CHAR(9),
+            TRANSPOSE(
+                ROW(
+                    INDIRECT(
+                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                    )
+                )
+            )
+        )
+    )
+    +
+    1,
+    FIND(
+        CHAR(9),
+        SUBSTITUTE(
+            ","&B15&",",
+            ",",
+            CHAR(9),
+            TRANSPOSE(
+                ROW(
+                    INDIRECT(
+                        "2:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+2
+                    )
+                )
+            )
+        )
+    )
+    -
+    FIND(
+        CHAR(9),
+        SUBSTITUTE(
+            ","&B15&",",
+            ",",
+            CHAR(9),
+            TRANSPOSE(
+                ROW(
+                    INDIRECT(
+                        "1:"&LEN(B15)-LEN(SUBSTITUTE(B15,",",""))+1
+                    )
+                )
+            )
+        )
+    )
+    -
+    1
+)
+
+                 {FALSE,TRUE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,TRUE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,TRUE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 TRUE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,TRUE,FALSE}
+
+                 {TRUE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,TRUE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 TRUE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,TRUE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE;
+                 FALSE,FALSE,FALSE,FALSE,FALSE}
+
+{
+1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0;
+0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
+0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0;
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+}
+
+=SUM(
+    COUNTIF(
+        --EXACT(
+            {"A";"C";"D ";"AB";"AAA"},
+            {"A","B","C","D","AA","A","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","D","DD","AABCCDD","AAAA"}
+         ),
+         SUM(
+            INDEX(
+                --EXACT(
+                    {"A";"C";"D ";"AB";"AAA"},
+                    {"A","B","C","D","AA","A","AB","AC","AD","ABC","ABD","ABCD","BBB","CC","D","DD","AABCCDD","AAAA"}
+                ),
+                {1,2,3,4,5},
+                {}
+            )
+         )<>1
+    )
+)
+
+=SUM(
+    IF({1,0;1,1;0,0;1,0;0,1}={0,1},{1,0;1,1;0,0;1,0;0,1},0)
+)
+
+=OFFSET({1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0;0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0;0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},ROW({1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0;0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0;0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0})-MIN(ROW({1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0;0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0;0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0})),0,1)
